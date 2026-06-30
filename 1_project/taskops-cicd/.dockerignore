@@ -1,0 +1,51 @@
+# Version control / CI
+.git
+.gitignore
+.gitattributes
+.github
+
+# Virtual environments
+.venv
+venv
+env
+
+# Python caches / build artifacts
+__pycache__
+**/__pycache__
+*.pyc
+*.pyo
+*.py[cod]
+.pytest_cache
+.ruff_cache
+.mypy_cache
+.coverage
+htmlcov
+*.egg-info
+build
+dist
+
+# Tests and docs (not needed in the runtime image)
+tests
+docs
+*.md
+scripts
+
+# Local databases / runtime state
+*.db
+*.sqlite
+*.sqlite3
+data
+instance
+
+# Logs
+*.log
+
+# Secrets — ignore real .env but keep the template
+.env
+!.env.example
+
+# Editor / OS cruft
+.vscode
+.idea
+.DS_Store
+Thumbs.db

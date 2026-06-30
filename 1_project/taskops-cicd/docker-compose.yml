@@ -1,0 +1,24 @@
+# Local development stack.
+# Usage: docker compose up --build
+services:
+  app:
+    build: .
+    image: taskops:latest
+    ports:
+      - "${APP_PORT:-5000}:5000"
+    environment:
+      FLASK_SECRET_KEY: "${FLASK_SECRET_KEY:-dev-insecure-change-me}"
+      DATABASE_PATH: /data/taskops.db
+      MAX_TITLE_LENGTH: "${MAX_TITLE_LENGTH:-120}"
+    volumes:
+      - taskops-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+volumes:
+  taskops-data:

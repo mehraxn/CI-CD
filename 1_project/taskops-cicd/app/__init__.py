@@ -9,7 +9,7 @@ from typing import Any
 
 from flask import Flask
 
-from .config import Config
+from .config import DEV_SECRET_FALLBACK, Config
 from .database import close_db, init_db
 
 
@@ -39,6 +39,16 @@ def create_app(test_config: Mapping[str, Any] | None = None) -> Flask:
         app.config.update(test_config)
 
     _configure_logging(app)
+
+    # Refuse to silently run production with the throwaway dev secret key.
+    if (
+        not app.config.get("TESTING")
+        and app.config["SECRET_KEY"] == DEV_SECRET_FALLBACK
+    ):
+        app.logger.warning(
+            "FLASK_SECRET_KEY is unset; using an insecure development key. "
+            "Set FLASK_SECRET_KEY before running in production."
+        )
 
     # Tear down the request-scoped DB connection after each request.
     app.teardown_appcontext(close_db)

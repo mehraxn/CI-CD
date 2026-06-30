@@ -49,6 +49,15 @@ def init_db() -> None:
     db.commit()
 
 
+def ping_db() -> None:
+    """Run a trivial query to confirm the database is reachable.
+
+    Raises ``sqlite3.Error`` (or another exception) if the database cannot be
+    queried; used by the /health endpoint as a readiness check.
+    """
+    get_db().execute("SELECT 1;").fetchone()
+
+
 def create_task(title: str, description: str = "") -> int:
     """Insert a new task and return its id."""
     db = get_db()

@@ -1,0 +1,49 @@
+# Production stack: run the published image behind an nginx reverse proxy.
+#
+# Configuration is read from a .env file in this directory (written by
+# scripts/deploy.sh) or from the shell environment. No personal value is
+# hardcoded — the image defaults to a generic placeholder you should override:
+#
+#   IMAGE             image repository (default: ghcr.io/your-username/taskops)
+#   IMAGE_TAG         tag to run (commit SHA in CI, defaults to "latest")
+#   FLASK_SECRET_KEY  required — compose aborts if unset/empty
+#   MAX_TITLE_LENGTH  optional, defaults to 120
+#   HTTP_PORT         public nginx port (defaults to 80)
+#
+# Usage:
+#   IMAGE=ghcr.io/<owner>/taskops FLASK_SECRET_KEY=... \
+#     docker compose -f docker-compose.prod.yml up -d
+services:
+  app:
+    image: "${IMAGE:-ghcr.io/your-username/taskops}:${IMAGE_TAG:-latest}"
+    container_name: taskops-app
+    environment:
+      FLASK_SECRET_KEY: "${FLASK_SECRET_KEY:?FLASK_SECRET_KEY is required}"
+      DATABASE_PATH: /data/taskops.db
+      MAX_TITLE_LENGTH: "${MAX_TITLE_LENGTH:-120}"
+    volumes:
+      - taskops-data:/data
+    expose:
+      - "5000"
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: taskops-nginx
+    ports:
+      - "${HTTP_PORT:-80}:80"
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      app:
+        condition: service_healthy
+    restart: always
+
+volumes:
+  taskops-data:

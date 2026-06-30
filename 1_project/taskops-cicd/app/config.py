@@ -8,6 +8,11 @@ from __future__ import annotations
 
 import os
 
+# Clearly non-secret development fallback. The factory warns when this is used
+# outside of tests so it can never be mistaken for a real production secret.
+# Not a real credential: a clearly-labelled placeholder the factory warns about.
+DEV_SECRET_FALLBACK = "dev-insecure-change-me"  # nosec B105
+
 
 def _read_int(name: str, default: int) -> int:
     """Read an integer environment variable, falling back to ``default``."""
@@ -25,7 +30,7 @@ class Config:
 
     # Never hardcode a real secret. In production FLASK_SECRET_KEY must be set;
     # the dev fallback is clearly non-secret and only keeps local runs working.
-    SECRET_KEY = os.environ.get("FLASK_SECRET_KEY", "dev-insecure-change-me")
+    SECRET_KEY = os.environ.get("FLASK_SECRET_KEY", DEV_SECRET_FALLBACK)
 
     # Path to the SQLite database file.
     DATABASE_PATH = os.environ.get("DATABASE_PATH", "taskops.db")

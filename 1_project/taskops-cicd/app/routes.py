@@ -103,5 +103,15 @@ def delete(task_id: int):
 
 @bp.route("/health")
 def health():
-    """Liveness/readiness probe."""
-    return jsonify(status="ok")
+    """Liveness/readiness probe; also verifies database connectivity.
+
+    Returns 200 with ``{"status": "ok", "database": "ok"}`` when the database
+    responds, or 503 with ``{"status": "error", "database": "down"}`` if the
+    connectivity check fails.
+    """
+    try:
+        database.ping_db()
+    except Exception:  # noqa: BLE001 - any DB failure means "unhealthy"
+        current_app.logger.exception("Health check failed: database unreachable")
+        return jsonify(status="error", database="down"), 503
+    return jsonify(status="ok", database="ok")
