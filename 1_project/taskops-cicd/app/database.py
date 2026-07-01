@@ -19,6 +19,11 @@ CREATE TABLE IF NOT EXISTS tasks (
     is_completed INTEGER NOT NULL DEFAULT 0,
     created_at   TEXT    NOT NULL DEFAULT (datetime('now'))
 );
+
+-- Covers the task-list query (ORDER BY created_at DESC, id DESC) so listing
+-- stays an index scan instead of a sort as the table grows.
+CREATE INDEX IF NOT EXISTS idx_tasks_created_at
+    ON tasks (created_at DESC, id DESC);
 """
 
 
@@ -31,6 +36,15 @@ def get_db() -> sqlite3.Connection:
         )
         conn.row_factory = sqlite3.Row
         conn.execute("PRAGMA foreign_keys = ON;")
+        # WAL lets readers proceed while a writer commits, and busy_timeout
+        # makes concurrent writers wait instead of failing immediately with
+        # "database is locked" -- essential once gunicorn runs >1 worker
+        # against the same SQLite file.
+        conn.execute("PRAGMA journal_mode = WAL;")
+        conn.execute("PRAGMA busy_timeout = 5000;")
+        # NORMAL is safe with WAL (no corruption on crash; at worst the last
+        # transaction is lost) and avoids an fsync per commit.
+        conn.execute("PRAGMA synchronous = NORMAL;")
         g.db = conn
     return g.db
 

@@ -32,30 +32,15 @@
       {% block content %}{% endblock %}
     </main>
 
-    <footer class="statusbar">
+    <footer
+      class="statusbar"
+      data-health-url="{{ url_for('taskops.health') }}"
+    >
       <span class="statusbar__label">health</span>
       <span class="statusbar__dot" id="health-dot" aria-hidden="true"></span>
       <span class="statusbar__value" id="health-value">checking…</span>
     </footer>
 
-    <script>
-      // Footer status bar reflects the /health endpoint response.
-      (function () {
-        var dot = document.getElementById("health-dot");
-        var value = document.getElementById("health-value");
-        fetch("{{ url_for('taskops.health') }}")
-          .then(function (r) {
-            return r.json();
-          })
-          .then(function (data) {
-            value.textContent = JSON.stringify(data);
-            dot.classList.add(data.status === "ok" ? "is-ok" : "is-bad");
-          })
-          .catch(function () {
-            value.textContent = "unreachable";
-            dot.classList.add("is-bad");
-          });
-      })();
-    </script>
+    <script src="{{ url_for('static', filename='js/health.js') }}" defer></script>
   </body>
 </html>

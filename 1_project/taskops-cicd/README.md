@@ -31,9 +31,14 @@ scanned, containerized, published, and deployed** through an automated pipeline.
 
 - Clean Flask structure (application-factory, isolated data layer, env-based
   config, no hardcoded secrets).
-- Automated testing with `pytest` (25 tests) including an XSS-escaping test.
+- Automated testing with `pytest` (29 tests) including XSS-escaping and CSRF tests.
 - Code-quality gates: `ruff`, `black`, `isort`.
 - Security scanning: `bandit` (SAST), `pip-audit` (dependencies), `Trivy` (image).
+- App-level hardening: **CSRF protection** on all POST forms and strict
+  security headers (CSP `default-src 'self'`, nosniff, frame-deny) — with no
+  extra dependencies.
+- SQLite tuned for concurrent workers: **WAL mode + busy timeout**, plus an
+  index covering the task-list query.
 - Containerization with Docker + Docker Compose, non-root and healthchecked.
 - Image publishing to **GitHub Container Registry (GHCR)**.
 - **Deployment automation** to a Linux server over SSH, behind an **nginx**
@@ -47,11 +52,11 @@ scanned, containerized, published, and deployed** through an automated pipeline.
 | ----------------- | ---------------------------------------------------- |
 | Language          | Python 3.12                                          |
 | Web framework     | Flask 3.1.3                                           |
-| WSGI server       | gunicorn 23.0.0 (2 workers, in container)            |
+| WSGI server       | gunicorn 23.0.0 (2 workers × 4 threads, in container) |
 | Templating        | Jinja2 (autoescaping on)                             |
 | Database          | SQLite (standard library `sqlite3`)                  |
 | Styling           | Hand-written CSS (no framework)                      |
-| Tests             | pytest (25 tests)                                    |
+| Tests             | pytest (29 tests)                                    |
 | Lint / format     | ruff, black, isort                                   |
 | Security          | bandit (SAST), pip-audit (deps), Trivy (image)       |
 | Container         | Docker (`python:3.12-slim`), docker compose          |
@@ -101,7 +106,7 @@ Linux server  ──►  docker compose -f docker-compose.prod.yml up -d
   ▼
 nginx  (:80)
   ▼
-Flask / gunicorn  (:5000, 2 workers)
+Flask / gunicorn  (:5000, 2 workers x 4 threads)
   ▼
 SQLite  (persistent /data volume)
 
@@ -159,12 +164,13 @@ IMAGE=ghcr.io/<owner>/taskops IMAGE_TAG=latest FLASK_SECRET_KEY=... \
 ```
 
 The image is `python:3.12-slim`, runs as a **non-root** user, stores SQLite under
-the `/data` volume, and has a `HEALTHCHECK` that curls `/health`.
+the `/data` volume, and has a `HEALTHCHECK` that probes `/health` using the
+Python interpreter already in the image (no curl or other apt packages needed).
 
 ## Running tests
 
 ```bash
-python -m pytest        # 25 tests
+python -m pytest        # 29 tests
 ```
 
 Covered in `tests/`:
@@ -280,17 +286,15 @@ Copy `.env.example` to `.env` for local use. Production **requires**
 
 ## Screenshots
 
-Screenshots live in [`docs/screenshots/`](docs/screenshots/) — see that
-directory's README for the suggested captures and filenames. Once added, embed
-them here, for example:
-
-```markdown
 ![Task dashboard](docs/screenshots/tasks.png)
-![CI pipeline](docs/screenshots/ci-success.png)
-```
 
-They are not committed yet (and are not faked); add real captures after the
-first deploy.
+*The task dashboard: pending/completed pills, per-task actions, and the live
+`/health` status bar in the footer.*
+
+A screenshot of a green CI run (`docs/screenshots/ci-success.png`) is
+intentionally not included yet — capture it from your repository's Actions tab
+after the first pipeline run. See [`docs/screenshots/`](docs/screenshots/) for
+the suggested captures and filenames.
 
 ## Limitations
 
@@ -298,7 +302,6 @@ Stated honestly so the scope is not overclaimed:
 
 - The Flask app is **intentionally simple** (a vehicle for the pipeline).
 - **No authentication / authorization** — all routes are public.
-- **No CSRF protection** on POST forms.
 - **SQLite is demo / small-deployment level** — single-writer, not for
   multi-instance scale-out.
 - **No HTTPS by default** — nginx serves plain HTTP on port 80.
@@ -308,7 +311,6 @@ Stated honestly so the scope is not overclaimed:
 
 ## Future improvements
 
-- CSRF protection (e.g. **Flask-WTF**).
 - User accounts / authentication; per-user task lists.
 - **HTTPS** via Let's Encrypt / Caddy / Traefik.
 - **PostgreSQL** backend for multi-instance deploys.

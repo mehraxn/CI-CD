@@ -6,7 +6,7 @@
 ![Docker](https://img.shields.io/badge/Docker-compose-2496ED?logo=docker&logoColor=white)
 ![GitHub Actions](https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-2088FF?logo=githubactions&logoColor=white)
 ![Security](https://img.shields.io/badge/Security-bandit%20%7C%20pip--audit%20%7C%20Trivy-1904DA?logo=aqua&logoColor=white)
-![Tests](https://img.shields.io/badge/Tests-25%20passing-success)
+![Tests](https://img.shields.io/badge/Tests-29%20passing-success)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 > **TaskOps** is a small Flask + SQLite task tracker that I built to show off a
@@ -416,15 +416,14 @@ The app reads these environment variables:
 
 ## Screenshots
 
-I haven't faked any screenshots. Once the project is on GitHub and the pipeline
-has run, I'll capture real ones and add them here. The
-[`docs/screenshots/`](docs/screenshots/) folder lists exactly which screenshots
-to add and what to name them. Example of how they'll be embedded:
+A real capture of the task dashboard is committed and embedded here:
 
-```markdown
-![Task dashboard](docs/screenshots/tasks.png)
-![CI pipeline passing](docs/screenshots/ci-success.png)
-```
+![Task dashboard](taskops-cicd/docs/screenshots/tasks.png)
+
+The CI-run screenshot (`ci-success.png`) is intentionally not faked; capture
+it from the repository's Actions tab after the first pipeline run. The
+[`docs/screenshots/`](taskops-cicd/docs/screenshots/) folder lists the
+suggested captures and filenames.
 
 ---
 

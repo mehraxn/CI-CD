@@ -65,7 +65,9 @@ bandit and pip-audit run on every push and pull request and locally via the
 ## Known limitations (out of scope)
 
 - No authentication or authorization — all routes are public.
-- No CSRF tokens on the POST forms.
+- CSRF protection is a minimal in-house implementation (session token +
+  constant-time compare); a framework like Flask-WTF would add per-form
+  tokens and time limits.
 - No rate limiting or TLS termination in the app itself (TLS would be terminated
   at nginx/load balancer in a real deployment; HTTPS is a future improvement).
 - SQLite is demo / small-deployment level (single-writer).
@@ -74,7 +76,7 @@ These are deliberately listed so the security posture is not overstated.
 
 ## Future security improvements
 
-- **CSRF protection** via Flask-WTF on the POST forms.
+- Swap the in-house CSRF implementation for **Flask-WTF** if forms grow.
 - **Authentication / authorization** (per-user task lists).
 - **HTTPS** terminated at the proxy — Let's Encrypt, Caddy, or Traefik.
 - **PostgreSQL** instead of SQLite for concurrent, multi-instance deployments.

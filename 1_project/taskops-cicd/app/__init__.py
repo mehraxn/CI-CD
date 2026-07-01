@@ -53,6 +53,11 @@ def create_app(test_config: Mapping[str, Any] | None = None) -> Flask:
     # Tear down the request-scoped DB connection after each request.
     app.teardown_appcontext(close_db)
 
+    # CSRF protection for POSTs + security headers on every response.
+    from . import security
+
+    security.init_app(app)
+
     # Register HTTP routes.
     from .routes import bp as routes_bp
 

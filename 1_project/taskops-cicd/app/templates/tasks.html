@@ -31,6 +31,7 @@
                   method="post"
                   action="{{ url_for('taskops.complete', task_id=task['id']) }}"
                 >
+                  <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
                   <button class="btn btn--small btn--accent" type="submit">
                     complete
                   </button>
@@ -40,6 +41,7 @@
                 method="post"
                 action="{{ url_for('taskops.delete', task_id=task['id']) }}"
               >
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
                 <button class="btn btn--small btn--danger" type="submit">
                   delete
                 </button>

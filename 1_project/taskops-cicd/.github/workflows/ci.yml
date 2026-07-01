@@ -1,8 +1,16 @@
 name: CI
 
 on:
+  # Run on pushes to main and on PRs. Restricting push avoids the same
+  # commit running twice (push + pull_request) on PR branches.
   push:
+    branches: [main]
   pull_request:
+
+# Cancel superseded runs of the same branch/PR to save CI minutes.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   quality:
@@ -51,8 +59,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build image
-        run: docker build -t taskops:ci .
+      - name: Set up Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build image (cached via GitHub Actions cache)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          load: true
+          tags: taskops:ci
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Scan image with Trivy (fail on HIGH/CRITICAL)
         uses: aquasecurity/trivy-action@0.28.0

@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
 
+# Serialize deploys: queue new runs but never cancel one mid-deploy.
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
 jobs:
   # Re-run the critical quality gates so a broken commit is never deployed,
   # even if someone pushes straight to main.
@@ -72,6 +77,8 @@ jobs:
           tags: |
             ${{ env.IMAGE }}:${{ github.sha }}
             ${{ env.IMAGE }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Scan image with Trivy before publishing (fail on HIGH/CRITICAL)
         uses: aquasecurity/trivy-action@0.28.0
@@ -104,10 +111,11 @@ jobs:
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           port: ${{ secrets.DEPLOY_PORT }}
-          # script_stop makes the remote shell fail fast on any error.
-          script_stop: true
           envs: IMAGE,IMAGE_TAG,FLASK_SECRET_KEY,MAX_TITLE_LENGTH,HTTP_PORT,GHCR_USER,GHCR_TOKEN
+          # script_stop was removed in ssh-action v1.x; `set -e` is the
+          # documented replacement so the step fails fast on any error.
           script: |
+            set -e
             chmod +x taskops/scripts/*.sh
             bash taskops/scripts/deploy.sh
         env:
