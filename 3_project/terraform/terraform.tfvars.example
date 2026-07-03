@@ -1,0 +1,43 @@
+project_name = "cloudops-lab"
+environment  = "lab"
+linux_image  = "ubuntu-24.04"
+vm_size      = "small"
+
+# This is a path only; no key content or secret is stored in Terraform.
+ssh_public_key_path = "~/.ssh/id_ed25519.pub"
+
+# 203.0.113.10 is a documentation-only address. Replace it with your own
+# trusted public IP in CIDR notation before adapting this for deployment.
+firewall_rules = [
+  {
+    port         = 22
+    description  = "SSH administration"
+    source_cidrs = ["203.0.113.10/32"]
+  },
+  {
+    port         = 80
+    description  = "HTTP"
+    source_cidrs = ["0.0.0.0/0"]
+  },
+  {
+    port         = 443
+    description  = "HTTPS"
+    source_cidrs = ["0.0.0.0/0"]
+  },
+  {
+    port         = 9090
+    description  = "Prometheus UI"
+    source_cidrs = ["203.0.113.10/32"]
+  },
+  {
+    port         = 3000
+    description  = "Grafana UI"
+    source_cidrs = ["203.0.113.10/32"]
+  }
+]
+
+tags = {
+  managed_by = "terraform"
+  purpose    = "portfolio"
+  owner      = "your-name"
+}

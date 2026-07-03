@@ -1,0 +1,56 @@
+---
+- name: Install Nginx
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+
+- name: Configure the CloudOps reverse proxy
+  ansible.builtin.copy:
+    dest: /etc/nginx/sites-available/cloudops-app
+    owner: root
+    group: root
+    mode: "0644"
+    content: |
+      server {
+          listen 80 default_server;
+          server_name _;
+
+          location / {
+              proxy_pass http://127.0.0.1:8000;
+              proxy_set_header Host $host;
+              proxy_set_header X-Real-IP $remote_addr;
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_set_header X-Forwarded-Proto $scheme;
+          }
+      }
+  register: nginx_config
+
+- name: Enable the CloudOps Nginx site
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/cloudops-app
+    dest: /etc/nginx/sites-enabled/cloudops-app
+    state: link
+  register: nginx_site
+
+- name: Disable the default Nginx site
+  ansible.builtin.file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  register: nginx_default_site
+
+- name: Validate the Nginx configuration
+  ansible.builtin.command: nginx -t
+  changed_when: false
+
+- name: Restart Nginx when its configuration changes
+  ansible.builtin.systemd_service:
+    name: nginx
+    enabled: true
+    state: restarted
+  when: nginx_config.changed or nginx_site.changed or nginx_default_site.changed
+
+- name: Ensure Nginx is running
+  ansible.builtin.systemd_service:
+    name: nginx
+    enabled: true
+    state: started

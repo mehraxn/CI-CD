@@ -1,0 +1,28 @@
+---
+- name: Update the apt package cache
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install common system packages
+  ansible.builtin.apt:
+    name:
+      - ca-certificates
+      - curl
+      - git
+      - ufw
+    state: present
+
+- name: Allow SSH, HTTP, and HTTPS through the host firewall
+  ansible.builtin.command: "ufw allow {{ item }}/tcp"
+  loop:
+    - 22
+    - 80
+    - 443
+  register: ufw_web_rule
+  changed_when: "'Rule added' in ufw_web_rule.stdout"
+
+- name: Enable the host firewall
+  ansible.builtin.command: ufw --force enable
+  register: ufw_enable
+  changed_when: false

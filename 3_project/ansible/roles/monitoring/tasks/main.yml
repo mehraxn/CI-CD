@@ -1,0 +1,107 @@
+---
+- name: Install Docker and the Compose plugin for monitoring
+  ansible.builtin.apt:
+    name:
+      - docker.io
+      - docker-compose-v2
+    state: present
+
+- name: Enable and start Docker for monitoring
+  ansible.builtin.systemd_service:
+    name: docker
+    enabled: true
+    state: started
+
+- name: Create the monitoring directory
+  ansible.builtin.file:
+    path: "{{ app_root | default('/opt/cloudops') }}/monitoring"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Check for the shared Docker network
+  ansible.builtin.command: docker network inspect cloudops
+  register: monitoring_network
+  changed_when: false
+  failed_when: false
+
+- name: Create the shared Docker network for monitoring
+  ansible.builtin.command: docker network create cloudops
+  when: monitoring_network.rc != 0
+  changed_when: true
+
+- name: Copy the Prometheus configuration
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/../monitoring/prometheus.yml"
+    dest: "{{ app_root | default('/opt/cloudops') }}/monitoring/prometheus.yml"
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Copy the example Grafana dashboard
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/../monitoring/grafana-dashboard.json"
+    dest: "{{ app_root | default('/opt/cloudops') }}/monitoring/grafana-dashboard.json"
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Install the monitoring Compose definition
+  ansible.builtin.copy:
+    dest: "{{ app_root | default('/opt/cloudops') }}/monitoring/docker-compose.yml"
+    owner: root
+    group: root
+    mode: "0644"
+    content: |
+      services:
+        prometheus:
+          image: prom/prometheus:v3.5.0
+          restart: unless-stopped
+          ports:
+            - "9090:9090"
+          volumes:
+            - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+          networks:
+            - cloudops
+
+        grafana:
+          image: grafana/grafana:12.1.0
+          restart: unless-stopped
+          ports:
+            - "3000:3000"
+          volumes:
+            - grafana-data:/var/lib/grafana
+          networks:
+            - cloudops
+
+      networks:
+        cloudops:
+          external: true
+
+      volumes:
+        grafana-data:
+  register: monitoring_compose_file
+
+- name: Start Prometheus and Grafana with Docker Compose
+  ansible.builtin.command:
+    cmd: >-
+      docker compose
+      --file {{ app_root | default('/opt/cloudops') }}/monitoring/docker-compose.yml
+      up --detach
+    chdir: "{{ app_root | default('/opt/cloudops') }}/monitoring"
+  register: monitoring_compose
+  changed_when: >-
+    'Created' in (monitoring_compose.stdout + monitoring_compose.stderr)
+    or 'Started' in (monitoring_compose.stdout + monitoring_compose.stderr)
+    or 'Recreated' in (monitoring_compose.stdout + monitoring_compose.stderr)
+
+- name: Allow monitoring access only from the configured administrator CIDR
+  ansible.builtin.command: >-
+    ufw allow from {{ monitoring_allowed_cidr | default('203.0.113.10/32') }}
+    to any port {{ item }} proto tcp
+  loop:
+    - 9090
+    - 3000
+  register: ufw_monitoring_rule
+  changed_when: "'Rule added' in ufw_monitoring_rule.stdout"

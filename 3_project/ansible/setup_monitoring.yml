@@ -1,0 +1,11 @@
+---
+- name: Install the CloudOps monitoring stack
+  hosts: cloudops
+  become: true
+
+  vars:
+    app_root: /opt/cloudops
+
+  roles:
+    - common
+    - monitoring

@@ -1,0 +1,13 @@
+---
+- name: Deploy the CloudOps application and reverse proxy
+  hosts: cloudops
+  become: true
+
+  vars:
+    app_user: cloudops
+    app_root: /opt/cloudops
+
+  roles:
+    - common
+    - app
+    - nginx

@@ -1,0 +1,14 @@
+---
+- name: Configure the complete CloudOps lab server
+  hosts: cloudops
+  become: true
+
+  vars:
+    app_user: cloudops
+    app_root: /opt/cloudops
+
+  roles:
+    - common
+    - app
+    - nginx
+    - monitoring
