@@ -36,11 +36,11 @@
 
 ## Related Topics
 
-- [Relative link to a related lesson]
+- [Add the topic name and its verified relative path.]
 
 ## Navigation
 
-- [Back to Main Topic](../README.md)
-- [Back to Learning Materials](../../README.md)
-- [Previous: Subtopic](../previous-subtopic/)
-- [Next: Subtopic](../next-subtopic/)
+- Back to main topic: [insert the correct relative link]
+- Back to Learning Materials: [insert the correct relative link]
+- Previous subtopic: [omit when not applicable, otherwise insert the correct relative link]
+- Next subtopic: [omit when not applicable, otherwise insert the correct relative link]

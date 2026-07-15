@@ -33,6 +33,6 @@ After completing this section, the learner should be able to:
 
 ## Navigation
 
-- [Back to Learning Materials](../README.md)
-- [Previous: Topic Name](../previous-topic/)
-- [Next: Topic Name](../next-topic/)
+- Back to Learning Materials: [insert the correct relative link]
+- Previous topic: [omit for the first topic, otherwise insert the correct relative link]
+- Next topic: [omit for the last topic, otherwise insert the correct relative link]
