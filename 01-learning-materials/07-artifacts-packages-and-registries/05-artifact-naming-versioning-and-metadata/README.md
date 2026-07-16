@@ -22,6 +22,8 @@ Naming ingredients: package/image **name**, **version** (semantic, with pre-rele
 
 **Branch names need sanitization** before entering names: branches may contain `/`, uppercase, or arbitrary user input, which breaks tags, DNS labels, and paths — and unsanitized interpolation of a branch name into a shell command is an injection vector, not just a formatting bug.
 
+A written **naming convention** should define field order, separators, case, allowed characters, and maximum length. Validate those rules before publication and reject an empty version, unsupported platform, or duplicate identity. Stable conventions improve **searchability**: humans can find a release by version while automation can parse the same fields without guessing. A pipeline run number prevents collisions among internal builds, but the source revision and content checksum are still needed to explain what the run produced.
+
 ## Metadata Beyond the Name
 
 | Metadata | Purpose |
@@ -34,6 +36,8 @@ Naming ingredients: package/image **name**, **version** (semantic, with pre-rele
 | Creation time | Operational context |
 
 Rich metadata lives *attached to* the artifact rather than crammed into its name: package manifests, and for images, **OCI labels** (`org.opencontainers.image.revision`, `.version`, `.source`) recording **source repository**, **revision**, **build workflow/URL**, and **toolchain/runtime versions**. Metadata should be **machine-readable** (automation queries it), **human-readable** (operators read it at 3 a.m.), and **validated** in the pipeline — wrong metadata is worse than none, because people trust it. One caution: labels on public images are public; do not embed confidential repository details or internal hostnames in them.
+
+A release manifest can connect several files to one release identity. For example, it can list the archive, SBOM, checksum file, supported operating system and architecture, producing workflow run, and creation timestamp. Consumers then verify both compatibility and lineage instead of trusting a filename alone.
 
 ## Common Mistakes
 

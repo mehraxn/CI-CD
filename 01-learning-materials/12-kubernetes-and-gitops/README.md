@@ -1,46 +1,39 @@
 # Kubernetes and GitOps
 
-## Overview
+Kubernetes reconciles declarative desired state for container workloads. GitOps stores that state in Git and uses a controller to compare and reconcile clusters.
 
-Kubernetes runs containerized workloads from declarative resource definitions. GitOps adds a model in which version-controlled desired state is reconciled into a cluster. This topic introduces pipeline deployments, manifests, configuration, Helm, Kustomize, Argo CD, and delivery across environments or clusters.
+```text
+Verified image → reviewed manifests/chart → Git desired state → controller reconciliation → observed workload
+```
 
-## Why It Matters
+## Lessons
 
-Cluster delivery involves more than running a deployment command. Teams must manage desired state, configuration differences, access boundaries, rollout health, and drift. GitOps can separate artifact creation from cluster reconciliation and provide a reviewable history of operational changes.
-
-## Main Concepts
-
-- Declarative Kubernetes resources and pipeline delivery
-- ConfigMaps, Secrets, Helm, and Kustomize
-- GitOps desired state and reconciliation
-- Environment and cluster promotion patterns
+| # | Lesson |
+|---|--------|
+| 01 | [Kubernetes Delivery Fundamentals](./01-kubernetes-delivery-fundamentals/) |
+| 02 | [Manifests, Deployments, Services, and Namespaces](./02-manifests-deployments-services-and-namespaces/) |
+| 03 | [ConfigMaps, Secrets, Probes, and Resources](./03-configmaps-secrets-probes-and-resources/) |
+| 04 | [Helm Charts, Values, and Releases](./04-helm-charts-values-and-releases/) |
+| 05 | [Kustomize Bases and Overlays](./05-kustomize-bases-and-overlays/) |
+| 06 | [GitOps Principles and Reconciliation](./06-gitops-principles-and-reconciliation/) |
+| 07 | [Argo CD Applications, Sync, and Drift](./07-argo-cd-applications-sync-and-drift/) |
+| 08 | [Multi-Environment and Multi-Cluster Delivery](./08-multi-environment-and-multi-cluster-delivery/) |
 
 ## Learning Objectives
 
-After completing this section, the learner should be able to:
+Explain desired state, workload/network/config resources, probes/resources/security, Helm and Kustomize, pull-based GitOps, Argo CD, drift, and environment/cluster organization.
 
-- Describe how an image reference becomes a Kubernetes rollout.
-- Compare direct pipeline deployment with GitOps reconciliation.
-- Identify configuration boundaries across environments and clusters.
+## Study Order and Project Connections
 
-## Planned Subtopics
+Follow the lessons. [KubeOps raw manifests](../../Projects/2_project/kubeops-gitops/k8s/) demonstrate Namespace, Deployment, Service, Ingress, ConfigMap, placeholder Secret, probes, resources, and security context. Its [Helm chart](../../Projects/2_project/kubeops-gitops/helm/kubeops/) templates the same application. [Argo CD Application](../../Projects/2_project/kubeops-gitops/argocd/application.yaml) is manual-sync by default; automated prune/self-heal are commented examples. Kustomize, AppProject, ApplicationSet, PVC, and multi-cluster delivery are absent.
 
-- [ ] Deploying to Kubernetes from CI/CD
-- [ ] Kubernetes manifests
-- [ ] ConfigMaps and Secrets
-- [ ] Helm
-- [ ] Kustomize overview
-- [ ] GitOps principles
-- [ ] Argo CD
-- [ ] Multi-environment delivery
-- [ ] Multi-cluster delivery
-
-## Related Practical Projects
-
-[Project 2: KubeOps GitOps](../../Projects/2_project/kubeops-gitops/) contains Kubernetes manifests, a Helm chart, deployment scripts, and an Argo CD application definition. It is the primary practical reference. Kustomize and multi-cluster delivery are planned concepts and should not be inferred from absent files.
+## Completion Checklist
+- [ ] I can map Kubernetes resources and selectors.
+- [ ] I can distinguish config, secrets, probes, requests, and limits.
+- [ ] I can compare Helm and Kustomize.
+- [ ] I can explain pull reconciliation and drift.
 
 ## Navigation
-
 - [Back to Learning Materials](../README.md)
 - [Previous: Docker in CI/CD](../11-docker-in-cicd/)
 - [Next: Infrastructure as Code and Automation](../13-infrastructure-as-code-and-automation/)

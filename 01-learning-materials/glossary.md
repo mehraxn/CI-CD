@@ -2,24 +2,31 @@
 
 Short definitions for terms used throughout these learning materials.
 
+- **A/B test:** A controlled experiment comparing outcomes between user groups receiving different variants.
 - **Acceptance test:** A test that checks whether the software meets agreed requirements.
 - **Agent:** A machine or process that executes pipeline work; often synonymous with runner.
 - **API test:** A test that sends requests to a service interface and validates status, headers, and response content.
 - **Artifact:** A stored output produced by a build or pipeline job.
+- **Artifact metadata:** Structured facts attached to an artifact, such as version, source revision, build run, platform, and checksum.
 - **Artifact promotion:** Advancing the same verified artifact through successive environments.
+- **Artifact retention:** Rules determining how long artifacts remain available before expiration or cleanup.
 - **Attestation:** Signed evidence describing how an artifact or action was produced.
 - **Audience:** An OIDC token claim naming the intended consumer, validated to prevent token reuse elsewhere.
+- **Backfill:** Populating existing records after adding or changing a data field or schema structure.
 - **Benchmark:** A measurement of a specific operation's speed or resource use, usually in isolation.
+- **Blast radius:** The maximum users, systems, data, or regions a failure can affect.
 - **Blue-green deployment:** A release method that switches traffic between two complete environments.
 - **Branch:** A movable Git reference that points to a commit and names a line of work.
 - **Branch coverage:** Coverage that requires each side of every decision point to be executed, not just each line.
 - **Break-glass procedure:** A documented, logged emergency path that bypasses normal controls, with narrow permissions and mandatory follow-up.
 - **Build:** The process that converts source and dependencies into a testable or deployable output.
+- **Build artifact:** A file or bundle produced by a build for testing, delivery, or deployment.
 - **Build input:** Anything that affects a build's result: source files, dependencies, configuration, and toolchain versions.
 - **Build lifecycle:** The ordered phases that turn inputs into verified output: prepare dependencies, compile or package, verify, release.
 - **Build metadata:** Identifying information attached to a build output, such as version, commit SHA, and build time.
 - **Build once, deploy many:** Producing one immutable artifact and promoting that same artifact through every environment instead of rebuilding per environment.
 - **Build output:** What a build produces: a package, bundle, binary, or container image, plus logs and reports.
+- **Build-time configuration:** Values that affect the artifact's contents while it is being built.
 - **Bundling:** Merging modules and assets into delivery-ready files, common in JavaScript builds.
 - **Cache:** Reusable intermediate data stored to speed later work; it may be discarded and recreated, unlike an artifact.
 - **Cache hit:** A run finding an existing cache entry matching its key.
@@ -28,6 +35,8 @@ Short definitions for terms used throughout these learning materials.
 - **Cache miss:** A run finding no cache entry for its key and rebuilding from scratch.
 - **Canary deployment:** A rollout that exposes a new version to a small subset before expansion.
 - **Cancellation:** Stopping a running pipeline, job, or step before it finishes, by a person, a concurrency rule, or fail-fast behavior.
+- **Changelog:** A maintained historical record of notable changes across releases.
+- **Checksum:** A digest calculated from content and used to detect accidental or malicious changes.
 - **CI (continuous integration):** Frequently integrating small changes and validating them with automated checks.
 - **Claim:** A statement inside an identity token, such as repository, branch, or workflow, evaluated by a trust policy.
 - **Clean build:** A build that starts from nothing and rebuilds everything, avoiding stale leftover state.
@@ -38,8 +47,10 @@ Short definitions for terms used throughout these learning materials.
 - **Composite action:** A reusable, packaged collection of steps that runs inside the calling job on the caller's runner.
 - **Concurrency group:** A named limit that controls how many runs of the same logical pipeline execute at once, by cancelling or queueing others.
 - **Condition:** A runtime rule that decides whether a job or step executes within an already-started run.
+- **Connection draining:** Stopping new traffic to an instance while allowing active requests or connections to finish.
 - **ConfigMap:** A Kubernetes resource holding non-secret configuration values, injected into pods as environment variables or files.
 - **Configuration drift:** Divergence between declared configuration and an environment's actual state, usually from manual changes.
+- **Configuration precedence:** The documented order that decides which source wins when several configuration sources define the same key.
 - **Configuration variable:** A non-sensitive setting stored in platform settings rather than the pipeline file, such as a GitHub repository variable.
 - **Constraints file:** A file restricting allowed dependency versions without declaring the complete dependency set.
 - **Container image:** An OCI-format bundle of filesystem layers, configuration, and a manifest, runnable by a container runtime.
@@ -52,25 +63,37 @@ Short definitions for terms used throughout these learning materials.
 - **Cross-compilation:** Producing build output for a CPU architecture different from the build machine's.
 - **DAG (directed acyclic graph):** A dependency graph with one-way edges and no cycles, representing job ordering and possible parallel execution.
 - **DAST:** Dynamic application security testing performed against a running application.
+- **Dark launch:** Deploying new code or infrastructure while keeping the associated feature hidden from broad use.
+- **Data migration:** A controlled transformation or movement of stored data.
+- **Database migration:** A controlled change to database schema, stored data, or reference data across application versions.
 - **Declarative pipeline:** Pipeline configuration that describes the desired structure — jobs, triggers, settings — rather than step-by-step control flow.
 - **Dependency:** Something required by other work: in builds, a library the software uses; in pipelines, a job that must finish before another starts.
 - **Dependency confusion:** An attack publishing a public package named like an internal one, hoping resolvers fetch the attacker's version.
 - **Dependency manager:** A tool that resolves declared dependencies against a registry and installs the result, such as pip or npm.
 - **Dependency resolution:** Turning declared version requirements into an exact set of packages to install.
+- **Delivery pipeline:** The automated path that keeps verified software ready for release and deployment.
 - **Deployment:** Installing or activating a software version in an environment.
 - **Deployment freeze:** A defined period during which deployments must not happen, such as around major business events.
+- **Deployment record:** An auditable record of the artifact, environment, actor, time, result, and verification for a deployment.
+- **Deployment-time configuration:** Values supplied while installing an artifact that control how and where it is deployed.
 - **Desired state:** The declared configuration a system should match, against which actual state is compared for drift.
+- **Destructive migration:** A schema or data change that removes or irreversibly transforms information.
 - **Deterministic build:** A build process that consistently produces the same output for the same inputs.
 - **Deterministic failure:** A failure that recurs identically for the same inputs; retrying it does not help.
 - **Development dependency:** A package needed to build and verify the software but not to run it, such as a test framework or linter.
+- **Development environment:** A local or shared context optimized for fast implementation feedback, normally using synthetic or disposable data.
 - **Direct dependency:** A dependency explicitly declared by the project itself.
 - **Docker layer cache:** Reuse of previously built image layers whose inputs have not changed.
 - **DORA metrics:** Delivery measures covering deployment frequency, lead time, change failure rate, and recovery time.
 - **Downstream job:** A job that depends on another job's result and runs after it.
 - **Drift detection:** Comparing actual environment state against declared configuration and reporting divergence.
+- **Dual read:** Temporarily reading from old and new data representations during a migration.
+- **Dual write:** Temporarily writing to old and new data representations during a migration.
 - **End-to-end test:** A test exercising a full user or system journey through the assembled system.
 - **Environment:** A target context such as development, test, staging, or production.
+- **Environment drift:** Divergence between environments in runtime, configuration structure, dependencies, or controls that should remain comparable.
 - **Environment parity:** Meaningful similarity between environments — same artifact, mechanism, and configuration structure — without requiring identical scale or cost.
+- **Environment promotion:** Advancing the same verified artifact and its release status to a more critical environment.
 - **Environment protection:** Platform rules, such as required reviewers, that guard deployments to a named environment.
 - **Environment variable:** A key-value pair visible to processes during a step, settable at workflow, job, or step scope.
 - **Ephemeral environment:** A deliberately short-lived environment created per change or test run and destroyed afterward.
@@ -79,16 +102,19 @@ Short definitions for terms used throughout these learning materials.
 - **Executor:** The process or environment a CI system uses to run job commands; related to runner and agent.
 - **Exit code:** A number a command returns on completion; 0 means success and any other value signals failure.
 - **Expression:** Platform-evaluated syntax, such as `${{ ... }}`, that reads contexts and computes values before commands run.
+- **Expand-and-contract:** A migration pattern that adds compatible structure, moves use and data, then removes the old structure later.
 - **Externalized configuration:** Keeping environment-varying values outside the application artifact, supplied via variables, files, or arguments.
 - **Fail-fast:** Stopping remaining related work, such as sibling matrix jobs, as soon as one part fails.
 - **Fake:** A working lightweight implementation used in tests, such as an in-memory store standing in for a database.
 - **Fan-in:** Several parallel jobs converging into one job that requires all of them.
 - **Fan-out:** One job's completion releasing several jobs to run in parallel.
 - **Feature flag:** A runtime control that enables or disables behavior independently of deployment.
+- **Federation:** Establishing trust between identity systems so one system can accept another's identity assertions without sharing a permanent credential.
 - **Feedback loop:** A cycle in which results from review, automation, operations, or users guide the next change.
 - **Filter:** A trigger-level rule, such as a branch or path pattern, that decides whether an event starts a run at all.
 - **Flaky test:** A test that passes and fails unpredictably without code changes, indicating a test or environment defect.
 - **Formatter:** A tool that rewrites code layout to a consistent style, such as Black.
+- **Garbage collection:** Reclaiming unreferenced storage, such as container layers left after image manifests are deleted.
 - **GitFlow:** A branching model using long-lived development and main branches plus feature, release, and hotfix branches.
 - **GitHub Actions:** GitHub's built-in CI/CD platform, configured through YAML workflow files under `.github/workflows/`.
 - **GitHub Flow:** A simple model using a deployable main branch, short branches, pull requests, and frequent integration.
@@ -97,70 +123,127 @@ Short definitions for terms used throughout these learning materials.
 - **GitLab CI/CD:** GitLab's built-in CI/CD platform, defining stage- and job-based pipelines executed by GitLab Runners.
 - **GitLab Runner:** The worker process that registers with GitLab and executes pipeline jobs through a configured executor.
 - **GitOps:** Operating declarative systems through version-controlled desired state and automated reconciliation.
+- **Graceful shutdown:** Stopping a process after it refuses new work and safely finishes or transfers active work.
 - **Hermetic build:** A build using only explicitly controlled inputs, avoiding undeclared external dependencies.
 - **Hosted runner:** A provider-managed execution machine, typically fresh per job and maintained by the CI/CD platform.
+- **Hotfix:** An urgent, narrowly scoped correction released outside the ordinary schedule when necessary.
 - **Idempotency:** The property that running an operation again produces the same end state as running it once.
+- **Image digest:** A content-addressed identifier, such as `sha256:...`, for the exact content of an image manifest.
+- **Image index:** An OCI object mapping platforms and architectures to their specific image manifests.
+- **Image layer:** A content-addressed filesystem change that forms one part of a container image.
 - **Image manifest:** Metadata describing a container image; a manifest list maps each platform to its image variant.
+- **Image tag:** A human-readable, movable pointer to an image manifest, such as `1.4.0` or `latest`.
 - **Immutable artifact:** An artifact whose contents cannot change after publication.
 - **Incremental build:** A build that reuses previous outputs for unchanged parts, trading isolation for speed.
 - **Infrastructure as Code (IaC):** Managing infrastructure through versioned, machine-readable definitions.
 - **Input:** A typed value supplied to a workflow or component when it is called or manually dispatched.
 - **Integration test:** A test verifying that components work together across a real boundary, such as code and a database.
+- **Issuer:** The OIDC token claim identifying the authority that created and signed the token.
 - **Jenkins:** A self-hosted automation server using a controller-and-agent architecture, configured largely through plugins and Jenkinsfiles.
 - **Jenkins agent:** A worker process that executes Jenkins pipeline work on a node.
 - **Jenkins controller:** The Jenkins server component that schedules work, stores configuration, and serves the UI.
 - **Jenkinsfile:** A Groovy file, declarative or scripted, that defines a Jenkins pipeline as code.
 - **Jenkins node:** A machine attached to Jenkins that offers one or more executors for running jobs.
 - **Job:** A group of steps executed together on a runner.
+- **Job output:** A small metadata value exposed by a job for use by its dependent jobs; it is not a file-transfer mechanism.
 - **JUnit XML:** A widely supported test-report format that CI platforms render into per-test result views.
+- **Kill switch:** An operational flag that rapidly disables risky behavior without necessarily redeploying.
 - **Latency:** The time a request takes to complete, commonly reported at percentiles such as p95 and p99.
 - **Line coverage:** Coverage counting which lines the tests executed at least once.
+- **Liveness probe:** A check asking whether an instance should be restarted because it cannot recover itself.
 - **Linking:** Combining compiled units into an executable or library.
 - **Linter:** A tool reporting suspicious patterns, style violations, or likely mistakes without executing the code.
 - **Load test:** A performance test applying expected or projected usage levels.
 - **Lockfile:** A file recording the exact resolved dependency graph, often with integrity hashes; a pinned direct-dependency list is not automatically one.
 - **Manifest:** A file describing requested dependencies and allowed versions, resolved by a dependency manager.
+- **Maintenance window:** A planned interval reserved for operational or production changes.
 - **Manual approval:** A human decision required before a pipeline may perform its next action.
 - **Mapping:** A YAML structure of named key-value pairs, nested by indentation.
 - **Matrix build:** Repeated pipeline work across combinations such as versions or operating systems.
 - **Merge:** Combining the histories and content of Git branches.
 - **Merge request:** A platform term for a proposed branch integration, similar to a pull request.
+- **Migration job:** A controlled, usually single-execution workload that applies a database or data migration.
 - **Mock:** A test double that returns canned answers and also records and asserts on how it was called.
 - **Multi-architecture image:** A container image published for several CPU architectures behind one reference via a manifest list.
+- **Mutable tag:** An image tag that can be moved to different content; tags are mutable unless registry policy prevents replacement.
+- **OCI:** Open Container Initiative, which defines open specifications for container image, distribution, and runtime formats.
+- **OCI image:** A container filesystem and configuration bundle conforming to the OCI image specification.
 - **OIDC:** OpenID Connect, often used by pipelines to obtain short-lived cloud credentials.
+- **OIDC claim:** A signed statement in an OIDC token, such as issuer, audience, subject, repository, or ref.
+- **Orphaned environment:** An environment whose owning change or team no longer needs it but whose resources still exist.
 - **Output:** A small named value a step or job publishes for later steps or dependent jobs; for metadata, not files.
+- **Package:** A versioned distributable unit with content and ecosystem-specific installation metadata.
+- **Package format:** The file layout and metadata conventions an ecosystem uses for distributable packages, such as a wheel, JAR, or NuGet package.
+- **Package registry:** A service that versions, controls, and distributes packages to publishers and consumers.
+- **Package repository:** A named storage and distribution location for packages, often one component within a registry or repository manager.
 - **Packaging:** Arranging build results and metadata into a distributable format.
 - **Parallelism:** Running independent work at the same time to shorten total duration at the cost of more concurrent resources.
 - **Percentile:** A latency statistic; p99 = 800 ms means 1% of requests were slower than 800 ms.
 - **Persistent runner:** A runner that serves many jobs over time, requiring deliberate cleanup and hardening against accumulated state.
 - **Pipeline:** An automated sequence or graph that builds, verifies, and delivers changes.
+- **Pipeline artifact:** A file or collection of files preserved from a pipeline run for later jobs, download, evidence, or delivery.
 - **Pipeline as Code:** Storing pipeline configuration as versioned files in source control, changed through commits and review.
 - **Policy as Code:** Machine-enforceable policies stored and reviewed as code.
+- **Post-release verification:** Observation and testing after release to decide acceptance, rollback, roll-forward, or incident response.
+- **Preproduction:** A production-like environment used for final validation before production, sometimes synonymous with staging.
+- **Preview environment:** A temporary deployment created for reviewing a branch or pull request and removed when the change closes.
+- **Production:** The controlled environment serving real users or workloads with real protected data.
 - **Progressive delivery:** Gradually increasing a release's exposure based on controls and observations.
 - **Protected branch:** A branch governed by server-side rules that restrict updates, deletion, or merging.
+- **Protected environment:** A deployment environment guarded by platform rules such as reviewers, branch policies, or wait timers.
 - **Provenance:** Verifiable information about an artifact's source and production process.
 - **Pull request:** A hosted-platform proposal to review and integrate one branch into another.
+- **Pull-through cache:** A registry proxy that stores upstream packages or images after the first pull and serves later requests locally.
 - **Quality gate:** A required condition that must pass before work can proceed.
+- **Readiness probe:** A check asking whether an instance should currently receive traffic.
 - **Rebase:** Replaying changes onto a new base as new commits, thereby rewriting commit identities.
+- **Reconciliation:** Bringing actual state back to declared desired state, or updating the declaration through an approved change.
+- **Recreate deployment:** Replacing a version by stopping old instances before starting new ones, commonly causing downtime.
 - **Registry:** A service that stores and distributes packages or container images.
+- **Registry authentication:** Proving a client or workload's identity to a registry before pull, push, or administration operations.
+- **Registry namespace:** The ownership scope within a registry that groups repositories, such as a user or organization name.
+- **Registry replication:** Copying registry content to another region or registry for availability or distribution; it is not a point-in-time backup.
 - **Regression test:** A test written to keep a previously fixed bug fixed; it can exist at any test level.
 - **Release:** A named, versioned set of changes made available for intended use.
+- **Release automation:** Automation coordinating release triggers, deployment, verification, records, and communication.
+- **Release artifact:** An immutable, verified output retained for distribution, deployment, support, and rollback.
+- **Release asset:** A downloadable file attached to a release page, such as an archive, checksum file, or installer.
+- **Release bundle:** A release artifact together with its manifest and evidence, such as checksums, SBOM, test reports, scan reports, and provenance.
+- **Release candidate:** A pre-release artifact intended to become the release unchanged if final validation succeeds.
+- **Release notes:** Human-oriented communication describing one release's changes, impact, compatibility, migration needs, and known issues.
+- **Release-on-demand:** The ability to deploy or release a ready candidate whenever an authorized decision is made.
+- **Release pipeline:** The controlled pipeline that selects a candidate, gathers evidence, progresses environments, and performs a release.
+- **Release readiness:** The evidence-backed state in which artifact, configuration, operations, monitoring, ownership, and recovery are prepared.
+- **Release record:** An auditable record connecting a release decision and result to source, artifact, environment, evidence, and owner.
+- **Release train:** A recurring schedule that groups eligible changes into planned release departures.
+- **Release window:** A planned period during which a production release is permitted.
 - **Remote repository:** A repository accessed over a network for exchanging Git objects and references.
 - **Repeatable build:** A build whose process can be run again successfully under the expected conditions.
 - **Repository:** A version-controlled project including its recorded history and references.
 - **Reproducible build:** A build where independent runs from the same inputs produce equivalent output.
+- **Required reviewer:** A person or team whose approval a protected environment requires before a deployment job can proceed.
 - **Retry:** Running failed work again, appropriate mainly for transient failures and bounded by a limit.
+- **Ring deployment:** Progressive exposure through ordered user or system groups, from lowest to highest risk.
 - **Reusable workflow:** A workflow invoked by another workflow at the job level, with declared inputs, outputs, and secrets.
 - **Rollback:** Restoring a previously known-good version or state.
 - **Roll-forward:** Recovering by deploying a new corrective version rather than reverting.
+- **Rolling deployment:** Gradually replacing old instances with new ones while both versions may temporarily coexist.
+- **Rolling update:** The incremental replacement operation used to perform a rolling deployment.
 - **Runner:** The compute environment that receives and executes pipeline jobs.
 - **Runner label:** A routing attribute that matches jobs to runners in GitHub Actions; not a security boundary.
 - **Runner tag:** GitLab's routing attribute matching jobs to runners; not a security boundary.
+- **Runtime configuration:** Values read by an application while running to select environment-specific behavior without rebuilding it.
 - **Runtime dependency:** A package the application needs while running, shipped with it to production.
 - **SAST:** Static application security testing that analyzes source or compiled code without running the application.
 - **SBOM:** A software bill of materials listing components included in a software product.
 - **Scripted pipeline:** Pipeline configuration written as step-by-step imperative code, such as Jenkins scripted Groovy.
+- **Schema migration:** A controlled change to database structure.
 - **Secret:** Sensitive data, such as a token or password, requiring controlled storage and access.
+- **Secret injection:** Supplying a secret only to the job or workload that needs it, commonly through scoped environment variables, files, or mounted volumes.
+- **Secret manager:** A service that stores, authorizes access to, audits, rotates, and revokes secrets.
+- **Secret masking:** Best-effort redaction of known secret values from logs; it is neither encryption nor complete leak prevention.
+- **Secret revocation:** Invalidating a credential so it can no longer be used.
+- **Secret rotation:** Replacing a secret with a new value and updating its authorized consumers safely.
 - **Self-hosted runner:** An execution machine operated by the team rather than the platform, gaining customization and internal access at the cost of maintenance and security responsibility.
 - **Semantic Versioning:** A major.minor.patch convention that communicates defined compatibility changes.
 - **Sequence:** A YAML structure holding an ordered list of items, each introduced by `- `.
@@ -168,20 +251,27 @@ Short definitions for terms used throughout these learning materials.
 - **Shared library:** Versioned reusable pipeline code imported by many pipelines, most commonly associated with Jenkins.
 - **Shift-left:** Moving useful quality, security, or operational feedback earlier in delivery.
 - **Shift-right:** Learning from running systems through production validation, observability, and user behavior.
+- **Short-lived credential:** A credential issued for a bounded session and designed to expire automatically soon after use.
 - **Smoke test:** A quick check that a built or deployed system is basically operational, such as polling a health endpoint.
 - **Soak test:** A performance test that runs for a long period to reveal leaks or gradual degradation.
 - **Spike test:** A performance test applying a sudden sharp increase in traffic.
 - **Spy:** A test double that wraps the real implementation while recording how it was called.
 - **Stage:** A logical pipeline phase, often containing one or more jobs.
+- **Startup probe:** A check asking whether application initialization has completed before other probes take effect.
+- **Stateful change:** A deployment-related change to persistent data or resources that outlive application instances.
 - **Staging area:** Git's proposed content for the next commit, also called the index.
+- **Staging environment:** A production-like environment used to validate a release candidate before production.
 - **Static analysis:** Examining code or configuration for problems without executing the application.
 - **Status check:** A result attached to a commit that repository rules may require before merge.
 - **Step:** An individual command or action within a job.
 - **Stress test:** A performance test pushing beyond normal capacity to observe failure behavior.
+- **Subject:** The OIDC token claim identifying the workload or principal the token represents.
 - **Stub:** A test double that returns canned answers without recording usage.
 - **Supply chain:** The tools, dependencies, processes, and systems used to produce and deliver software.
 - **Tag:** A Git reference commonly used as a stable name for a release commit.
 - **Task:** A platform term for a reusable unit of work within a job; comparable to a step or packaged action.
+- **Test artifact:** Preserved test evidence such as a report, coverage file, screenshot, log, or diagnostic bundle.
+- **Test environment:** An environment intended for automated or manual verification with controlled, disposable test data.
 - **Test fixture:** Reusable setup and teardown that provides a test with what it needs, such as a client or a throwaway database.
 - **Test-impact analysis:** Selecting which tests to run by mapping tests to the code a change affects.
 - **Test pyramid:** Guidance to keep many fast isolated tests at the base and fewer broad tests toward the top.
@@ -189,25 +279,98 @@ Short definitions for terms used throughout these learning materials.
 - **Test report:** Structured output of a test run, such as JUnit XML or an HTML coverage report, preserved as evidence.
 - **Test sharding:** Dividing one large test suite into groups that run in parallel on separate workers.
 - **Throughput:** The amount of work a system completes per unit of time, such as requests per second.
+- **Time to live:** A duration after which a temporary environment, credential, cache, or artifact should expire or be cleaned up, often abbreviated TTL.
 - **Timeout:** A time limit that stops a hanging job or step and reports it as failed.
 - **Transient failure:** A failure caused by a temporary external condition that may genuinely succeed on retry.
 - **Transitive dependency:** A package required by your dependencies rather than declared by your project directly.
 - **Transpilation:** Translating source code into different source code, such as TypeScript to JavaScript.
+- **Traffic splitting:** Directing defined portions of traffic to different application versions or variants.
 - **Trigger:** A configured rule that decides whether an event starts a workflow or pipeline.
 - **Trunk-based development:** Frequent integration into one shared trunk using tiny changes or very short-lived branches.
+- **Trust policy:** Rules defining which federated identities and token claims may assume a role or receive temporary credentials.
 - **Type checking:** Verifying that values and operations match declared type expectations without running the program.
 - **Unit test:** A fast, isolated test of one small logic unit, with external dependencies replaced.
 - **Upstream job:** A job whose result other jobs depend on and wait for.
 - **Variable precedence:** The rule deciding which value wins when the same variable name is set at several levels; the most specific scope usually wins.
 - **Variable scope:** The region of a pipeline — workflow, job, or step — in which a variable is defined and visible.
 - **Version pinning:** Fixing a dependency, tool, image, or action to an exact version or immutable reference.
+- **Wave deployment:** Progressive rollout to batches of targets or regions in a planned sequence.
+- **Weighted routing:** Routing traffic among destinations according to configured proportions.
 - **Workflow:** A platform-defined automated process made of one or more jobs.
 - **Workflow as code:** Storing an automated process in version-controlled configuration.
 - **Workflow run:** A single execution of a workflow, created after a trigger rule matches an event.
 - **Workflow template:** A starting pipeline file copied into a repository and maintained independently afterward.
 - **Working directory:** The checked-out files that a Git user views and edits.
+- **Workload identity:** A verifiable identity assigned to an automated workload so it can obtain scoped credentials without storing a long-lived key.
 - **Workspace:** The directory on a runner where a job checks out sources and produces files.
 - **YAML:** A human-readable data format based on indentation, mappings, and sequences, used by most CI/CD platforms for pipeline configuration.
+- **Zero-downtime deployment:** A deployment that preserves uninterrupted service through redundancy, readiness, compatibility, capacity, and graceful traffic handling.
+
+## Docker, Kubernetes, and GitOps Terms
+
+- **Actual state:** The resources and conditions currently observed in a system.
+- **ApplicationSet:** An Argo CD resource generating Applications from cluster, Git, or list inputs.
+- **AppProject:** An Argo CD policy boundary constraining allowed sources, destinations, and resources.
+- **Argo CD:** A Kubernetes GitOps controller that compares Git desired state with clusters and performs sync.
+- **Argo CD Application:** A resource mapping a Git source to a cluster destination and sync policy.
+- **Base:** Kustomize resources intended for reuse by overlays.
+- **Base image:** The parent image selected by a Dockerfile `FROM` instruction.
+- **Bind mount:** A host filesystem path mounted into a container.
+- **Build context:** The file tree made available to a container-image builder.
+- **Builder stage:** A multi-stage Dockerfile stage producing outputs for a later runtime stage.
+- **`Chart.yaml`:** Helm chart metadata containing chart and application identity.
+- **Cluster:** Kubernetes control plane and worker nodes managed as one system.
+- **Command:** The default arguments or process command configured for a container.
+- **Compose service:** One containerized component declared in a Compose project.
+- **Container:** A running or stopped runtime instance created from an image.
+- **Container writable layer:** Temporary per-container filesystem changes above immutable image layers.
+- **Control plane:** Kubernetes components exposing the API and coordinating scheduling and controllers.
+- **Controller:** A process continuously reconciling actual state toward desired state.
+- **`.dockerignore`:** Rules excluding paths from a Docker build context.
+- **Docker:** A platform and toolset for building and running OCI-compatible containers.
+- **Docker BuildKit:** Docker's modern builder supporting efficient graphs, caches, and secret mounts.
+- **Docker Compose:** A declarative format and tool for running related container services.
+- **Docker health check:** An image/runtime command reporting container health status.
+- **Docker network:** Runtime connectivity and name-resolution scope for containers.
+- **Dockerfile:** Instructions used to build a container image.
+- **Drift:** Difference between declared desired state and observed actual state.
+- **Entrypoint:** The executable configured as a container's primary process.
+- **Helm:** A Kubernetes package manager that renders and installs charts.
+- **Helm chart:** A package of Kubernetes templates, defaults, helpers, and metadata.
+- **Helm release:** A named installed instance and revision history of a chart.
+- **Image:** Immutable-intended filesystem layers and configuration used to create containers.
+- **`kustomization.yaml`:** The file declaring Kustomize resources, patches, and transformations.
+- **Kubernetes:** A platform that schedules and reconciles containerized workloads across a cluster.
+- **Kubernetes Secret:** A Kubernetes object for sensitive configuration; Base64 representation is not encryption.
+- **Kustomize:** A Kubernetes configuration tool composing bases and overlays without template expressions.
+- **Layer cache:** Reusable outputs of unchanged image-build instructions.
+- **Multi-cluster delivery:** Controlled deployment and reconciliation across more than one Kubernetes cluster.
+- **Multi-stage build:** A Dockerfile with multiple stages that copies selected outputs into a runtime image.
+- **Named volume:** Runtime-managed persistent container storage identified by name.
+- **Namespace:** A Kubernetes naming and policy scope, not a complete security boundary.
+- **Non-root container:** A container whose main process runs as a non-root user.
+- **OCI label:** Standard image metadata such as source, version, revision, or title.
+- **OutOfSync:** Argo CD status indicating live state differs from desired state.
+- **Overlay:** Kustomize customization applying environment-specific changes to a base.
+- **PersistentVolumeClaim:** A Kubernetes workload request for persistent storage.
+- **Pod:** Kubernetes' smallest schedulable unit, containing one or more related containers.
+- **Pruning:** Deleting live resources removed from declared desired state.
+- **Reconciliation loop:** Repeated observation and action that moves actual state toward desired state.
+- **Registry pull:** Downloading an image manifest and layers from a registry.
+- **Registry push:** Uploading an image manifest and layers to a registry.
+- **ReplicaSet:** A Kubernetes controller maintaining a requested number of matching Pods.
+- **Resource limit:** The maximum CPU or memory a Kubernetes container may consume.
+- **Resource request:** CPU or memory used by Kubernetes scheduling and capacity decisions.
+- **Runtime stage:** The final multi-stage image stage containing only what execution needs.
+- **Scheduler:** Kubernetes component assigning unscheduled Pods to suitable nodes.
+- **Security context:** Kubernetes settings controlling user, privilege, capabilities, and filesystem security.
+- **Self-healing:** Automatic reconciliation that reverts live drift to declared state.
+- **Service:** Kubernetes resource providing stable discovery and routing to selected Pods.
+- **Sync:** Applying desired source state to an Argo CD destination.
+- **Sync policy:** Argo CD rules governing manual/automatic sync, pruning, and self-healing.
+- **`values.yaml`:** Default configuration values consumed by Helm templates.
+- **Worker node:** Cluster machine that runs scheduled Pods.
+- **Writable layer:** Mutable container filesystem layer that disappears with the container unless persisted elsewhere.
 
 ## Navigation
 

@@ -33,6 +33,7 @@ pr-184-task-api
 - **Isolated data** — a temporary database with **seed data**, never a shared one: previews sharing a database corrupt each other's state and reviews.
 - **DNS and TLS** — each preview needs a resolvable, ideally certificate-backed URL; wildcard DNS and certificates make this tractable.
 - **PR comments with deployment URLs** close the loop for reviewers.
+- **Environment ownership** links the resources and URL to the pull request, author, and team responsible for cleanup.
 - **Concurrency and collision** — two pushes to the same PR must not fight over one environment; updates should supersede, not overlap.
 
 **Branch names are untrusted input.** A branch called `feature/Fix#1; rm -rf /` must be sanitized before it becomes a DNS label, a Kubernetes namespace, a path, or — worst — part of a shell command. Lowercase, strip or replace invalid characters, truncate, and add the PR number for uniqueness; never interpolate raw branch names into commands.
@@ -46,6 +47,8 @@ pr-184-task-api
 - **Secret exposure** — previews run *unreviewed branch code*; they must receive scoped preview credentials, never production secrets, and **fork PRs** deserve extra caution (untrusted code + any credentials = incident).
 - **Cleanup reliability** — destruction must trigger on close *and* merge *and* staleness; **orphaned environments** and leftover DNS records are the default failure mode without a scheduled reaper.
 - **Incomplete parity** — a preview validates the change, not production behavior; it complements, not replaces, staging.
+
+Access should be deliberate even for disposable systems. A deployment URL may need authentication, IP restrictions, or private networking; temporary does not mean harmless. Teardown should remove the namespace or compute, database, storage, DNS record, certificate material, and any preview-scoped credentials. A scheduled inventory that compares open pull requests with live previews catches cleanup events that were missed.
 
 ## Common Mistakes
 

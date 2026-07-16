@@ -2,7 +2,7 @@
 
 ## Images and Their Anatomy
 
-A **container image** in the **OCI** (Open Container Initiative) format is a stack of **layers** (filesystem diffs), an **image configuration** (environment, entrypoint, labels), and an **image manifest** tying them together by digest. An **image index** (manifest list) maps platforms to variants for **multi-architecture images**. Because everything is content-addressed, every image has a **digest** — `sha256:...` — that identifies its exact bytes forever.
+A **container image** in the **OCI** (Open Container Initiative) format is a stack of **layers** (filesystem diffs), an **image configuration** (environment, entrypoint, labels), and an **image manifest** tying them together by digest. An **image index** (manifest list) maps platforms to variants for **multi-architecture images**. Because the objects are content-addressed, every image has a **digest** — `sha256:...` — that identifies its exact content. The identity does not change, although a registry can later delete the content and make it unavailable.
 
 A full image reference decomposes as:
 
@@ -12,6 +12,8 @@ registry   namespace  repository  tag
 ```
 
 **Tags** are human-named pointers that can move; **digests** are content-addressed and cannot. That single fact drives most registry policy.
+
+A registry groups image **repositories** inside namespaces. A client **pushes** manifests and missing layers to publish, then a runtime **pulls** the selected manifest and layers to run it. Authentication proves the client identity; authorization decides whether that identity may pull a private image, push a new manifest, overwrite a tag, or delete content. Public images normally permit anonymous pulls, not anonymous pushes.
 
 ## The Publishing Path
 

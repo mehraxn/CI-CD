@@ -18,10 +18,10 @@ Study the topics in numbered order. Early sections establish terminology and pip
 | 06 | [Automated Testing and Quality](./06-automated-testing-and-quality/) | Place appropriate automated checks in a pipeline | Complete |
 | 07 | [Artifacts, Packages, and Registries](./07-artifacts-packages-and-registries/) | Store, identify, promote, and retain build outputs | Complete |
 | 08 | [Environments, Configuration, and Secrets](./08-environments-configuration-and-secrets/) | Separate deployable code from environment-specific settings and credentials | Complete |
-| 09 | [Continuous Delivery and Releases](./09-continuous-delivery-and-releases/) | Design controlled, traceable release flows | Not started |
-| 10 | [Deployment Strategies and Recovery](./10-deployment-strategies-and-recovery/) | Compare rollout strategies and plan safe recovery | Not started |
-| 11 | [Docker in CI/CD](./11-docker-in-cicd/) | Build, test, scan, publish, and deploy container images | Not started |
-| 12 | [Kubernetes and GitOps](./12-kubernetes-and-gitops/) | Deliver Kubernetes changes through declarative and GitOps workflows | Not started |
+| 09 | [Continuous Delivery and Releases](./09-continuous-delivery-and-releases/) | Design controlled, traceable release flows | Complete |
+| 10 | [Deployment Strategies and Recovery](./10-deployment-strategies-and-recovery/) | Compare rollout strategies and plan safe recovery | Complete |
+| 11 | [Docker in CI/CD](./11-docker-in-cicd/) | Build, test, scan, publish, and deploy container images | Complete |
+| 12 | [Kubernetes and GitOps](./12-kubernetes-and-gitops/) | Deliver Kubernetes changes through declarative and GitOps workflows | Complete |
 | 13 | [Infrastructure as Code and Automation](./13-infrastructure-as-code-and-automation/) | Validate and apply repeatable infrastructure changes | Not started |
 | 14 | [DevSecOps and Supply-Chain Security](./14-devsecops-and-supply-chain-security/) | Integrate security controls throughout software delivery | Not started |
 | 15 | [Observability, Metrics, and Optimization](./15-observability-metrics-and-optimization/) | Measure pipeline and deployment health and improve the system | Not started |
@@ -40,10 +40,10 @@ The materials explain the decisions behind CI/CD practices. The existing [projec
 - [x] 06 — Automated Testing and Quality
 - [x] 07 — Artifacts, Packages, and Registries
 - [x] 08 — Environments, Configuration, and Secrets
-- [ ] 09 — Continuous Delivery and Releases
-- [ ] 10 — Deployment Strategies and Recovery
-- [ ] 11 — Docker in CI/CD
-- [ ] 12 — Kubernetes and GitOps
+- [x] 09 — Continuous Delivery and Releases
+- [x] 10 — Deployment Strategies and Recovery
+- [x] 11 — Docker in CI/CD
+- [x] 12 — Kubernetes and GitOps
 - [ ] 13 — Infrastructure as Code and Automation
 - [ ] 14 — DevSecOps and Supply-Chain Security
 - [ ] 15 — Observability, Metrics, and Optimization

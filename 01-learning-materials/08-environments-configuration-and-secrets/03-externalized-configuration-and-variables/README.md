@@ -63,7 +63,13 @@ data:
 
 The same role is played by **repository/organization variables** in CI platforms, **Docker Compose environment blocks**, **Helm values** files, **Terraform variables**, and **Ansible variables/inventory** — different carriers, one principle: named, versioned, reviewable values separated from code, with **sensitive values excluded** (those are Secrets, next lesson).
 
+Scope limits where a value applies. An organization variable may supply a shared non-secret default; a repository variable narrows it to one project; an environment-scoped value can vary between staging and production; workflow, job, and step scopes narrow visibility inside a run. Broader scope is convenient but increases the number of consumers affected by a mistaken change. Secrets should use their dedicated mechanism rather than ordinary variables at any scope.
+
+**Configuration templates** such as `.env.example` document required keys without carrying deployment values. Helm values and Terraform variable files can be versioned declarations, while generated configuration files should retain a clear source template and validation step. Ansible variables may live in inventory, group variables, or encrypted vault data depending on sensitivity. The carrier changes; the need for review, validation, ownership, and a documented consumer does not.
+
 **Precedence** — which source wins when several define the same key — depends on the application and platform. The only universal rule: **document the precedence explicitly**; undocumented precedence is where "works in staging, broken in prod" bugs live. Configuration also deserves **versioning** (files in Git, reviewed like code) and **ownership** — stale keys nobody dares delete are drift in waiting.
+
+Reload behavior is part of the contract. Some applications read values once at startup and require a restart; others watch a mounted file or remote service and reload. Dynamic reload needs validation and rollback just as deployment does: accepting an invalid value live can be faster—and more dangerous—than shipping a bad build.
 
 ## Common Mistakes
 

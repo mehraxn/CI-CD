@@ -6,6 +6,8 @@ A **package registry** stores published package versions, serves their metadata 
 
 Structure inside a registry: a **namespace or organization scope** (`@org/package`, `ghcr.io/owner/...`) that anchors ownership, package names within it, and **versions** within each package — including **pre-release versions** and, crucially, versions that should be **immutable** once published.
 
+The registry also stores package **metadata** that a resolver can query: dependencies, compatibility constraints, checksums, publication time, and deprecation state. During **dependency resolution**, an installer selects a permitted version, verifies its integrity data, downloads it, and records or installs the result. Registry availability therefore affects both builds and consumers; pinning an exact version does not help if that version cannot be retrieved. Proxies, controlled mirrors, and tested replication can reduce this dependency without changing the package identity.
+
 Hosted examples, conceptually: PyPI, npm registry, Maven Central, GitHub Packages, GitLab Package Registry, Azure Artifacts, AWS CodeArtifact, JFrog Artifactory, Sonatype Nexus. The mechanics below apply to all of them.
 
 ## The Publishing Path
@@ -35,6 +37,8 @@ Permission syntax differs by platform and ecosystem, but the least-privilege sha
 ## Version Lifecycle
 
 Published versions age. Registries offer graduated responses: **deprecation** (version stays installable, consumers see a warning), **yanking** (version is hidden from new resolution but remains for those who pinned it — Python's model), and **deletion** (gone — which breaks every consumer whose lockfile references it, which is why released versions used by anyone should effectively never be deleted). **Retention** policies automate cleanup for snapshot/pre-release versions while protecting releases. **Promotion** between repositories (snapshot → release repo) and **replication** across regions or registries belong to lesson 06 and 07 patterns.
+
+Replication improves distribution and outage tolerance, but it does not replace a backup: an accidental deletion may replicate too. Promotion should preserve the package bytes, version, checksum, signature, and provenance rather than rebuilding the package in the destination repository.
 
 ## Registry Security
 

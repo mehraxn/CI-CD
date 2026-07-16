@@ -25,6 +25,8 @@ Production
 
 Every environment needs a stated **purpose** and an **owner**; environments accumulate otherwise (**environment sprawl**), each one costing money and drifting quietly. **Isolation** and **access** rules define the tier as much as the name does — production is production because of who *cannot* touch it. **Documentation** of what each environment is for, who owns it, and how it differs is part of the strategy, not an afterthought.
 
+A **shared development environment** can connect work that is awkward to reproduce locally, while an **integration environment** exercises several changing services together. Shared tiers trade convenience for contention: one team's deployment can invalidate another team's test. Long-lived environments therefore need change ownership, booking or concurrency rules, budgets, and regular reviews. Network policies and separate accounts, clusters, namespaces, or credentials can improve isolation, but an environment name alone creates no boundary.
+
 ## Environment Parity
 
 **Parity** means an environment resembles production in the ways that make validation transfer:
@@ -36,6 +38,8 @@ Every environment needs a stated **purpose** and an **owner**; environments accu
 - **Real production secrets and personal data should not be copied casually** — staging with a copy of the production database is a compliance incident waiting for a lower-security environment to leak it.
 
 The honest limits: staging never proves production completely — capacity behavior, real traffic patterns, and real data pathologies only exist in production, which is why post-deployment verification (smoke tests, monitoring) still matters.
+
+Parity should also cover service dependency contracts and important network paths. A staging system that replaces every external service with a simplistic stub, permits traffic production denies, or uses a different deployment mechanism may be cheaper but cannot validate those behaviors. Document intentional differences, their owner, cost justification, and the risk each leaves for production.
 
 ## Release Flow Through Environments
 

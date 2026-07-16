@@ -34,6 +34,8 @@ Promotion is a status change, and there are several mechanical forms:
 
 A **release candidate** is exactly this pattern applied to versioning: the RC *is* the release if validation passes — promoted, not rebuilt.
 
+After **staging validation**, the candidate becomes an **approved artifact** through a recorded release-status or approval change. **Production promotion** must bind that decision to the candidate's digest or checksum. **Metadata promotion** may add the approval state, destination, and time without changing the artifact; a **release manifest** records the identities of every component being promoted. This distinction keeps changing process data separate from immutable application bytes.
+
 ## Release Bundles: The Artifact Plus Its Evidence
 
 An artifact alone answers "what runs"; audits and rollbacks also ask "what proved it was fit?" A release bundle keeps the evidence with the release:
@@ -50,7 +52,7 @@ Release 1.4.0
 └── Release notes
 ```
 
-The **SBOM** (bill of materials) lists what is inside; **provenance** states how and from what it was built; **test and scan evidence** show what was verified; the **approval record** shows who authorized promotion — kept *alongside* the artifact, not baked into it (approval status changes; artifact bytes must not). The bundle also names the **rollback identity**: rolling back means redeploying a previous immutable identity, which only works if that identity still exists (retention, next lesson) — and **roll-forward** likewise needs the failing identity recorded to diagnose against.
+The **SBOM** (bill of materials) lists what is inside; **provenance** states how and from what it was built; **test and scan evidence** show what was verified; the **approval record** shows who authorized promotion — kept *alongside* the artifact, not baked into it (approval status changes; artifact bytes must not). The bundle also names the **rollback identity**: rolling back means redeploying a previous immutable identity, which only works if that identity still exists (retention, next lesson). A **roll-forward identity** names the corrective artifact, while recording the failed identity preserves the evidence needed for diagnosis.
 
 ## Common Mistakes
 

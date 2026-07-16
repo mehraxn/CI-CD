@@ -114,17 +114,33 @@ This roadmap builds working literacy and practical habits in about 45 days. It d
 
 **Topics:** [Continuous Delivery and Releases](./09-continuous-delivery-and-releases/) and [Deployment Strategies and Recovery](./10-deployment-strategies-and-recovery/).
 
+**Day 26 — Delivery and candidates:** Delivery versus deployment, releases, release candidates, and release-pipeline design. Outputs: a CI/delivery/deployment classification and a release-candidate record.
+
+**Day 27 — Promotion and identity:** Build once, deploy many; artifact promotion; versioning; tags; changelogs; and release notes. Outputs: a promotion diagram and release-notes draft tied to source and artifact identity.
+
+**Day 28 — Controls and verification:** Approvals, release windows, readiness, post-release verification, communication, and audit. Outputs: an approval decision table and release-readiness checklist.
+
+**Day 29 — Deployment and recovery:** Recreate, rolling, blue-green, canary, feature flags, zero downtime, rollback/roll-forward, and database migrations. Outputs: a deployment-strategy comparison, canary plan, health-check map, rollback decision table, and expand-and-contract migration design.
+
 **Learning goals:** Must learn build-once promotion, release traceability, health checks, and rollback versus roll-forward. Should understand semantic releases, approvals, rolling, blue-green, canary, progressive delivery, and database compatibility. Advanced traffic management is optional.
 
 **Practical activity:** Review Project 1's deployment, smoke-test, backup, and rollback files. Write a release decision checklist and walk through a hypothetical failed deployment without executing it.
 
-**Expected output:** A release checklist, recovery decision tree, and noted database risks.
+**Expected output:** The daily outputs above, connecting release identity and evidence to a controlled deployment and recovery path.
 
 **Related repository project:** [Project 1 — TaskOps CI/CD](../Projects/1_project/taskops-cicd/).
 
 ## Phase 8 — Days 30–33: Docker in CI/CD
 
 **Topics:** [Docker in CI/CD](./11-docker-in-cicd/).
+
+**Day 30 — Foundations:** Images versus containers, Dockerfiles, build context, and `.dockerignore`. Outputs: an image/container map, Dockerfile layer audit, and `.dockerignore` proposal.
+
+**Day 31 — Efficient identity:** Layers, caching, multi-stage builds, metadata, and tags. Output: an image-tagging policy.
+
+**Day 32 — Runtime verification:** Compose, health checks, runtime tests, and scanning. Outputs: a Compose service map and container-check classification.
+
+**Day 33 — Publication and deployment:** Registries, publishing workflows, deployment, and review. Outputs: a registry-workflow annotation and image-deployment trace.
 
 **Learning goals:** Must learn build context, layers, tags, image publication, and container-based test execution. Should understand multi-stage builds, Compose in CI, scanning, minimal runtime images, and immutable digests. Advanced multi-architecture builds are optional.
 
@@ -137,6 +153,14 @@ This roadmap builds working literacy and practical habits in about 45 days. It d
 ## Phase 9 — Days 34–37: Kubernetes and GitOps
 
 **Topics:** [Kubernetes and GitOps](./12-kubernetes-and-gitops/).
+
+**Day 34 — Kubernetes resources:** Fundamentals, manifests, Deployments, Services, and Namespaces. Output: a Kubernetes resource relationship map.
+
+**Day 35 — Workload configuration:** ConfigMaps, Secrets, probes, resources, and Helm. Outputs: a configuration/probe/resource audit and Helm values-to-template trace.
+
+**Day 36 — Composition and reconciliation:** Kustomize, GitOps principles, reconciliation, and drift. Outputs: a Kustomize overlay proposal and GitOps flow diagram.
+
+**Day 37 — Argo CD and fleet design:** Applications, sync, multi-environment, and multi-cluster concepts. Outputs: an Argo CD Application annotation and multi-environment directory proposal.
 
 **Learning goals:** Must learn core manifests, image references, configuration resources, rollout health, and GitOps reconciliation. Should understand Helm, Argo CD, environment values, drift, and direct-deploy versus pull-based models. Kustomize and multi-cluster delivery are optional at this stage.
 

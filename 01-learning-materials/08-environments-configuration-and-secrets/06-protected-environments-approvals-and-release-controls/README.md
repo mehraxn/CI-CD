@@ -106,7 +106,7 @@ Target 25–35 minutes.
 1. Only that the job references an environment name; reviewer and branch rules live in repository settings, invisible in the YAML.
 2. Cancelling mid-deployment can leave the system half-updated; queueing lets each deployment finish atomically.
 3. If the job holds them pre-approval, the approval gates nothing — the code that runs before the gate already had production access.
-4. The tag can point at different bytes by deploy time; approval must bind to an immutable identity (digest or SHA) to mean anything.
+4. The tag can point at different bytes by deploy time; approval should bind to a digest, or to a SHA tag that registry policy makes non-overwritable, to identify the approved bytes.
 5. Argo CD's manual sync for KubeOps — deployment happens only when a human syncs, a manual approval implemented in the GitOps tool.
 6. Fatigue: approving everything regardless of risk, without criteria or evidence, until reviewers click through automatically.
 

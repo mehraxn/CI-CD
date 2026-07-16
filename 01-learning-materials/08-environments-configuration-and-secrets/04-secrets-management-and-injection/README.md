@@ -20,7 +20,11 @@ Application uses secret
 Secret is rotated or revoked
 ```
 
+These mechanisms do not offer identical guarantees. A Kubernetes Secret is an API object whose Base64 representation is not encryption; cluster encryption at rest and access controls must be configured separately. Docker secrets are mounted for services rather than baked into image layers. Ansible Vault encrypts committed variable content but still requires careful vault-password delivery. Terraform's `sensitive` marking hides values from normal display, yet secret values can still enter state, so the state backend itself needs encryption and strict access. A dedicated manager can centralize lifecycle controls, but workloads still need narrowly scoped authorization to retrieve values.
+
 **Least privilege and scope** apply twice: which identities may *read* a secret, and which jobs/steps/services it is *injected into*. Add **break-glass access** (documented emergency retrieval, logged), **secret scanning** (tools that detect committed secrets), and an **incident-response** rule everyone must know: **removing a secret from Git does not revoke it** — history retains it and clones already have it; a committed secret is a *rotated* secret, immediately.
+
+Rotation replaces a credential without avoidable downtime: issue the replacement, update consumers, verify them, then revoke the old value. Immediate revocation comes first when compromise is suspected. Certificates, refresh tokens, and database credentials may require different overlap procedures, but every secret needs an owner, expiration expectation, and tested incident path.
 
 ## Injection Mechanisms
 
