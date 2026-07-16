@@ -47,6 +47,20 @@ The [Helm chart](../../../Projects/2_project/kubeops-gitops/helm/kubeops/) can r
 
 Common errors include managing bare Pods, mismatched labels, assuming self-healing fixes application bugs, using mutable images without traceability, placing secrets in plain configuration, omitting resources, and treating namespace separation as full tenancy security.
 
+## Operational Reasoning
+
+When a workload fails, separate declaration, scheduling, image pull, container startup, readiness, routing, and application behavior. A Pending Pod can indicate capacity or constraints; an image-pull error differs from a crashing process; a Running Pod can still be unready; a ready endpoint can still fail business tests. Controllers report and act on platform observations but do not replace layered diagnosis.
+
+Delivery evidence should connect an image digest and Git revision to Deployment rollout status, Pod readiness, Service endpoints, and an external smoke test. Events and status are transient observations, so retain the relevant result with the pipeline or release record. Avoid editing live resources as the normal fix; update declarative state and let reconciliation establish a reviewable history.
+
+Availability also depends on replicas, disruption, topology, resources, probes, and capacity. Two replicas in YAML do not prove they occupy separate failure domains or can both run during an update. Kubernetes supplies mechanisms, while the delivery design supplies correct values and verification.
+
+## Delivery Decision Record
+
+For each workload, document the managing controller, image identity, configuration sources, storage ownership, exposed Service, readiness contract, resource basis, and recovery path. This makes desired state reviewable as an operating model rather than a pile of YAML.
+
+Controllers act asynchronously. A pipeline should wait for a bounded rollout outcome and then test user-visible behavior; merely accepting an API request is not delivery success. On timeout, retain events and status before a later reconciliation changes them. Manual live edits should be exceptional because they obscure which declaration is authoritative.
+
 ## Practical Exercise
 Draw source → image → manifest/chart → API → Deployment → ReplicaSet → Pod → Service.
 

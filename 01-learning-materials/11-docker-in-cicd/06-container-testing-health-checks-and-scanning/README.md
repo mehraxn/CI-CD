@@ -48,6 +48,14 @@ When a health check fails, inspect startup logs, process exit, port binding, con
 
 Additional hardening questions include non-root identity, unexpected capabilities, writable filesystem needs, embedded secrets, SBOM completeness, and signature/provenance verification. These are defense layers; no single green check establishes security.
 
+## Acceptance Matrix
+
+Write an acceptance matrix with check, subject, evidence, failure action, owner, and expiry for exceptions. Source dependency audit, image vulnerability scan, configuration inspection, runtime smoke test, and post-deploy verification inspect different subjects. Running all under one “security” label hides gaps.
+
+Scan findings should link to the precise image digest. Rebuilding a tag after remediation produces different content and requires a new decision. Database updates can change results for unchanged images; retain the database/version timestamp when auditability matters. If `ignore-unfixed` is used, schedule base refresh and reassessment rather than forgetting accepted findings.
+
+Health endpoints should expose no secrets and avoid destructive work. Test both expected success and clean failure behavior, including termination signals and non-root permissions. Cleanup failure is itself a test-infrastructure defect because it contaminates later jobs.
+
 ## Practical Exercise
 
 Classify repository checks as build, smoke, Docker health, Kubernetes liveness/readiness, scan, and post-deploy verification. Note timing and failure behavior.

@@ -66,6 +66,20 @@ This design is deliberately not implemented because the task prohibits creating 
 
 Common mistakes include duplicating full manifests, fragile patches, committed secret-generator input, environment data in the base, forgotten image overrides, deep overlay inheritance, never reviewing output, and mixing Helm/Kustomize without clear ownership. Drift is still possible if rendered resources are changed manually or the GitOps controller does not reconcile them.
 
+## Review Workflow
+
+Render every overlay and inspect the complete output, not just patch files. Confirm resource names, namespace, labels/selectors, images, configuration references, and generated hashes. Compare environments to detect accidental divergence. A patch that silently matches nothing or the wrong list element can leave plausible-looking but unsafe output.
+
+Keep bases environment-neutral and overlays shallow. Prefer a clear patch over duplicating whole resources, but prefer duplication over an opaque tower of fragile transformations when it improves review. Document ownership when Helm rendering and Kustomize transformations are combined. GitOps controllers must use the same render order developers validate locally.
+
+Promotion should update an image tag or digest in the overlay and preserve the same base. Secret generators require protected input and rotation behavior; committed literals remain plaintext regardless of generated resource names. Name hashes help trigger consumers only when references are correctly transformed.
+
+Because Kustomize is absent here, evidence should say “conceptual proposal based on KubeOps manifests,” never “the project deploys overlays.” This distinction is part of technical accuracy.
+
+## Selection Guidance
+
+Choose Kustomize when recognizable base YAML plus limited transformations matches team needs. Choose Helm when a versioned, reusable package and parameterized templates are valuable. Consider both only when the render boundary is documented and consistently reproduced in CI and GitOps. Tool preference should follow ownership and review quality, not universal claims.
+
 ## Practical Exercise
 Design a file-only KubeOps base/dev/prod overlay tree and map what would remain common versus patched. Do not create it.
 ## Knowledge Check

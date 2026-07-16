@@ -46,6 +46,20 @@ The real map is thus: image workflow -> GHCR; separately, Git chart/values -> Ar
 
 Common mistakes include plaintext secrets, excessive controller permissions, automated prune without deletion review, unclear repository ownership, manual tag changes, assuming Git revert guarantees recovery, and emergency fixes never reconciled into Git.
 
+## Governance and Failure Handling
+
+Define who owns application code, desired-state repositories, environments, controller administration, and emergency access. Branch protection and review should match environment risk. Controller scope should be no broader than its owned resources and destinations. Repository and cluster credentials need rotation and audit independent of manifest review.
+
+Before automated sync, decide how failed health, partial application, prune deletion, dependency ordering, and maintenance windows behave. Test drift detection with a harmless field and confirm whether policy reports or repairs it. Inventory resources that must never be pruned accidentally. A Git commit can be valid while rendered output violates cluster policy or application expectations.
+
+Incident response should preserve Git revision, rendered diff, sync operation, resource status, and application signals. If break-glass changes are necessary, record them and reconcile the final state into Git. Otherwise self-heal may undo the fix or hidden drift becomes the new normal. Rollback through Git must respect data compatibility; roll-forward may be safer.
+
+The audit trail is only as trustworthy as identities and controls. Shared accounts, rewritten history, unreviewed bot commits, or excessive controller permissions weaken it. GitOps is disciplined operations through reconciliation, not permissionless automation.
+
+## Reconciliation Metrics
+
+Useful operational measures include time from approved Git change to observed sync, duration OutOfSync, failed operations, repeated drift, prune events, and application verification after sync. Metrics should distinguish controller availability from application health. Alerting on every harmless generated-field difference creates noise; ignoring broad paths hides real change.
+
 ## Practical Exercise
 Draw push and pull flows, identities, audit points, drift behavior, and failure modes.
 ## Knowledge Check

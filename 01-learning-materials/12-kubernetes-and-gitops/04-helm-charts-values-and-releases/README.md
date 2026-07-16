@@ -57,6 +57,24 @@ The [Deployment template](../../../Projects/2_project/kubeops-gitops/helm/kubeop
 
 Project scripts and docs show `helm upgrade --install`, rollback, linting, and template/dry-run guidance. Files do not prove any release exists. Hooks, test hooks, dependencies, subcharts, OCI chart publishing, packaged archives, and values schema are absent. Common mistakes include one enormous values file, committed secrets, confused versions, excessive logic, mutable images, unreviewed output, and assuming Helm rollback restores external data.
 
+## Chart Review Workflow
+
+Review begins with chart metadata and declared dependencies, then default values, environment overrides, and every template consumer. Trace each important value to rendered YAML and identify unused or misspelled values. Render each supported environment and compare resource names, namespaces, selectors, images, Secret behavior, probes, and resources. A values schema can catch type errors before cluster submission.
+
+Release planning records chart version, application/image identity, values revision, namespace, and rendered diff. An upgrade can replace workload objects while leaving external data unchanged. Hook jobs and CRDs need special lifecycle rules. Rollback reuses a prior Helm revision but does not reverse database migrations, external APIs, or secret rotation.
+
+Avoid passing sensitive values through source control or observable command lines. Prefer references to provisioned Secrets or an integrated protected mechanism. Remember Helm release data may contain rendered configuration. Review RBAC around release storage and access.
+
+GitOps changes ownership: Argo CD can render the chart from Git, while direct `helm upgrade` becomes an out-of-band change that may be reported or reverted. Pick one normal owner. Repository docs show both learning paths, but the Application is the declared GitOps path for dev.
+
+## Values and Ownership Discipline
+
+Every value should have a type, safe default, owner, and documented environment behavior. Avoid exposing raw Kubernetes structure as values without a stable contract; consumers then depend on template internals. Helpers should centralize repeated naming and labels, not hide major control flow.
+
+Before release, compare rendered output against the prior revision and validate API compatibility. After release, pair Helm status with Kubernetes rollout and application checks. A successful Helm operation can still produce an unhealthy application. Store enough evidence to connect release revision, chart version, app/image version, values revision, and rendered digest.
+
+If Argo CD owns the Helm source, changes should flow through Git. Direct Helm commands may create drift and conflicting history. Emergency use needs reconciliation back into the declared source and clear ownership of the resulting release state.
+
 ## Practical Exercise
 Trace five values from values-prod into templates and resulting resources.
 ## Knowledge Check

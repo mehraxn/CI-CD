@@ -70,6 +70,12 @@ Read instructions in order. Record base identity, network installation, ownershi
 
 Finally inspect history risks. A secret copied in one layer stays unsafe if deleted later. A combined `RUN` cannot make an exposed argument secret. Specific evidence such as “TaskOps copies requirements before source and runs as created UID 1000” is supportable; “secure and reproducible” needs resolved inputs, tests, scans, and runtime policy.
 
+## Failure Diagnosis
+
+A “file not found” during `COPY` usually means the source is outside context, misspelled, or excluded. Unexpectedly slow transfer points to an oversized context. Permission failures after switching user point to ownership or writable-path design. Startup failures can result from shell/exec semantics, a wrong working directory, or a missing runtime dependency. Diagnose the earliest failing boundary rather than weakening ignore rules or returning to root.
+
+For change review, compare both Dockerfile and ignore file because either can alter build inputs. Record the resolved base and output digest when reproducibility matters. Generated files should be produced by a controlled stage, not silently inherited from a developer checkout. Build secrets should have a documented provider, consumer instruction, and proof that they do not remain in output.
+
 ## Practical Exercise
 
 Audit context, base, dependency/application layers, user, check, and exclusions for all Dockerfiles without editing.

@@ -76,6 +76,24 @@ The Deployment requests 100m CPU/128Mi memory and limits 500m/256Mi. It runs UID
 
 Absent features include PVCs, volume-based ConfigMap/Secret injection, external secret operators, startup probes, network policy, and documented rotation/reload automation. Common mistakes are treating Base64 as encryption, using ConfigMaps for secrets, identical probe semantics, premature liveness, no requests, unrealistic limits, broad secret exposure, and rotation without reload.
 
+## Operational Review
+
+Classify every configuration key by sensitivity, owner, source, rotation frequency, and reload behavior. Non-sensitive log levels fit a ConfigMap; credentials do not. For `envFrom`, check for key collisions and broad exposure. For volumes, check file permissions and which containers mount them. A Secret name in YAML proves a reference, not secure provisioning.
+
+Probe review starts with intent. Readiness should represent ability to serve traffic, liveness should identify a process that cannot recover without restart, and startup should cover initialization. Calculate the effective failure window from delays, periods, timeouts, and thresholds. Ensure probes use named or correct ports and do not overload dependencies. Repeated liveness restarts can hide the original fault.
+
+Resource review compares observed CPU/memory with requests and limits under startup and peak load. Low CPU limits cause latency through throttling; low memory limits cause termination; excessive requests waste scheduling capacity. Quality of Service is a consequence, not a goal by itself. Document how values were measured and revisit them.
+
+Finally combine security context and filesystem behavior. A read-only root is useful only when required writable paths use appropriate temporary or persistent volumes. Non-root UID must match image ownership. Admission and runtime policy may add constraints not visible in workload YAML.
+
+## Change and Rotation Safety
+
+Changing a ConfigMap or Secret does not universally restart Pods. Environment-variable consumers need replacement; projected volumes update eventually, while applications may still need reload. Use an explicit rollout or checksum mechanism when required and test rotation without exposing values. Keep old and new credentials valid long enough for controlled transition when the backing system permits it.
+
+Probe and resource changes are production behavior changes. Tightening liveness or memory limits can create an outage without changing application code. Roll them out gradually and observe restart count, latency, throttling, OOM events, readiness duration, and capacity. Version-control the reasoning as well as the numbers.
+
+A secret audit records names and references, not contents. Verify RBAC and encryption configuration through authorized platform evidence; manifest files cannot prove them. External-manager claims require a real controller/reference, which this repository lacks.
+
 ## Practical Exercise
 Audit keys, sensitivity, injection, probes, resources, and security context without reading values.
 ## Knowledge Check

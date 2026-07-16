@@ -54,6 +54,24 @@ No AppProject manifest beyond use of `default`, ApplicationSet, sync waves, hook
 
 Common mistakes include pointing production at a development path, overly broad permissions, auto-prune without review, plaintext secrets, unrelated resources under one Application, unexpected target branches, missing custom health logic, hotfixes outside Git, and confusing sync with health. Access to sync is itself a production permission and should follow least privilege.
 
+## Application Review Checklist
+
+Verify that repository, revision, and path point to the intended environment and that rendering selects the expected values. Verify destination cluster and namespace independently. Review AppProject restrictions, controller permissions, repository credentials, cluster credentials, and who can sync. An in-cluster URL identifies topology, not a guarantee that a cluster is reachable.
+
+Before sync, inspect diff for deletions, immutable-field replacement, namespace changes, image identity, and Secret references. For automated policy, review prune and self-heal separately. Confirm how sync waves, hooks, retries, and windows behave. Ignore-differences rules should be narrow, documented, and tested so they do not hide security or image drift.
+
+After sync, inspect operation result, sync status, resource health, events, rollout readiness, and an application smoke test. `Healthy` and `Synced` are controller interpretations, not end-user verification. Record the Git revision and image digest associated with the result.
+
+For a manual hotfix, predict whether self-heal will revert it and how the change returns to Git. For rollback, check application and data compatibility. Protect refresh/sync/rollback permissions as deployment capabilities, and never expose repository or cluster credential values in annotations or documentation.
+
+## Failure Scenarios
+
+Repository access failure prevents source refresh; cluster credential failure prevents comparison or apply; rendering failure blocks desired manifests; admission failure rejects resources; rollout failure can leave partial change; and a health assessment may be missing. These produce different status and require different owners. Do not respond to all of them by forcing another sync.
+
+An Application may be OutOfSync because another controller owns a field, because a person edited live state, or because desired resources changed. Diagnose the diff before self-healing. An Application may be Synced and Degraded when Git accurately describes a workload that cannot become healthy. Application smoke tests close the gap between controller status and user behavior.
+
+Production review should also cover AppProject boundaries, Application deletion/finalizers, orphaned resources, destination changes, and credential rotation. The repository's single manual dev Application is intentionally much smaller than that conceptual operating model.
+
 ## Practical Exercise
 Annotate every real Application field and mark active, commented, external, and unverifiable behavior.
 ## Knowledge Check

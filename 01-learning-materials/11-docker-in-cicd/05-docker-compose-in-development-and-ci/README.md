@@ -82,6 +82,14 @@ Render the effective Compose configuration conceptually from base files, overrid
 
 For CI, assign a unique project name, avoid fixed ports where possible, wait on behavior rather than sleep, collect logs before teardown, and remove volumes/orphans in an always-run cleanup step. Verify that bind mounts do not hide packaged image content. A repeat run should start without stale state. These checks distinguish a repeatable integration stack from a developer machine that happens to work.
 
+## Configuration Precedence and Parity
+
+Effective Compose behavior can differ from the visible base file because shell variables, `.env`, environment files, overrides, profiles, and command-line selection combine. Document precedence and render the effective model in real work before relying on it. Never assume a value came from the file currently open.
+
+Parity means preserving important interfaces—image, ports, service names, configuration contracts, health semantics, and dependency versions—not copying production credentials or infrastructure onto laptops. CI should resemble the integration boundary it validates while remaining isolated and disposable. Production differences such as TLS, managed databases, scheduling, and secret providers should be explicit.
+
+Troubleshooting begins by identifying the service that first became unhealthy, its resolved configuration, network name, mounted paths, and logs. A downstream connection error may be readiness, DNS, credentials, or schema state; blindly adding `depends_on` will not solve all four.
+
 ## Practical Exercise
 
 Map services, ports, networks, volumes, health dependencies, configuration, and cleanup needs in one real Compose file.

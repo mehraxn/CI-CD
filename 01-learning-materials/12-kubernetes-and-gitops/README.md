@@ -64,6 +64,10 @@ Its [Helm chart](../../Projects/2_project/kubeops-gitops/helm/kubeops/) template
 
 Kustomize, AppProject, ApplicationSet, startup probes, PersistentVolumeClaims, Helm hooks, automated image-to-Git updates, multiple Application resources, and multi-cluster registration are absent. TaskOps uses server-side Compose rather than Kubernetes, and Project 3 provides Terraform/Ansible/Compose observability examples but no Kubernetes delivery files.
 
+## Study Guidance
+
+Treat committed declarations as evidence of intent, not proof of live cluster state. Pair Git review with observed rollout status, controller events, and application tests when working on a real system. Preserve one accepted image identity through promotion, and assign an owner to controller permissions, deletion policy, secret delivery, drift handling, and recovery. The examples here are safe to inspect without running cluster commands.
+
 ## Completion Checklist
 - [ ] I can map Kubernetes resources and selectors.
 - [ ] I can distinguish config, secrets, probes, requests, and limits.

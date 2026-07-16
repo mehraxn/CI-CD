@@ -58,6 +58,18 @@ Only one [Argo CD Application](../../../Projects/2_project/kubeops-gitops/argocd
 
 A conceptual improvement could retain the Helm chart, add reviewed immutable image values for dev/staging/prod, and declare separate Applications or an ApplicationSet with narrowly scoped destinations. That is a design exercise only; no such executable files were created.
 
+## Promotion Record and Safety Checks
+
+Each promotion record should identify source environment, target environment, image digest, chart/configuration revision, approval, observation window, and result. Cluster fan-out should be explicit: which ring receives the change, what signals pause advancement, and who authorizes continuation. Reusing the same digest makes differences attributable to configuration or platform rather than rebuilt content.
+
+Before fleet rollout, compare Kubernetes versions, CRDs, policies, storage classes, ingress, secrets, and regional dependencies. Validate controller permissions and cluster selectors so a label error cannot target the wrong fleet. Limit credentials and controller scope to contain blast radius. Shared services and data replication need their own recovery plan.
+
+Environment drift can exist in Git structure, rendered manifests, or live clusters. Review all three. A successful dev sync does not prove production values or cluster integrations. Disaster recovery claims require exercises that restore both declarative resources and external state; a second values file is not recovery evidence.
+
+## Ownership at Scale
+
+Assign owners for the shared chart/base, each environment's overrides, cluster registration, fleet policy, secrets, and promotion approval. ApplicationSet generation reduces repetition but can multiply a mistake; generated output and selectors need review like handwritten Applications. A cluster removed from a generator also needs an intentional decommission policy.
+
 ## Practical Exercise
 Design a KubeOps directory/values promotion proposal and label real versus conceptual resources, credentials, policies, and clusters.
 ## Knowledge Check

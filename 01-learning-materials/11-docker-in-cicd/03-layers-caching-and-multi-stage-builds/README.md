@@ -57,6 +57,14 @@ For multi-stage design, name the artifact crossing the boundary—wheel, binary,
 
 Reproducibility needs resolved base/dependency identities and output digests, not cache hits. Warm and cold builds should be equivalent; cache loss should slow a build, not alter correctness. Trace an unexpected miss to the earliest changed instruction. Trace excess image size to the introducing layer. Missing runtime files usually mean selected output or shared libraries were omitted.
 
+## Design Trade-Off Record
+
+Before changing stages or cache, record the slow steps, layer sizes, vulnerability sources, required platforms, and operational debugging needs. A proposed optimization should name the expected improvement and a verification method. Otherwise additional stages can increase maintenance without reducing runtime content.
+
+Treat cache keys, scopes, and writers as supply-chain configuration. Release jobs should consume only cache appropriate to their trust level. Network package installation remains a changing input even when the Dockerfile is unchanged, so dependency locking and artifact repositories complement caching. After a builder update, compare image behavior and digest rather than assuming cached output remains valid.
+
+Multi-stage tests should include missing shared libraries, certificate access, timezone behavior, signal handling, and non-root file access. The runtime stage must contain everything required—but nothing merely convenient from compilation. This balance is more useful than a size target alone.
+
 ## Practical Exercise
 
 Map TaskOps instructions to layers and invalidation triggers. Identify which inputs invalidate dependencies and source.

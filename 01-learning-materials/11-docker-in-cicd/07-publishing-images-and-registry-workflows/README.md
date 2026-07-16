@@ -46,6 +46,14 @@ For each publication, retain the trusted trigger, source revision, workflow run,
 
 Failure handling must define whether partially published tags are removed or quarantined, who can move stable tags, and how rejected temporary content expires. Registry settings are external state; workflow YAML alone cannot prove package visibility, immutability, or retention. Report those properties as unknown unless configuration evidence exists.
 
+## Promotion and Recovery
+
+Publication and promotion are different. Publication makes an image available; promotion approves its identity for an environment. A stable release should promote already verified content, not rebuild or retag unknown bytes on an operator laptop. Record the digest at publication and carry it into desired-state review.
+
+If a push partially fails, determine which tags and manifests became visible before retrying. Retrying mutable tags concurrently can create races. Serialize stable releases or use unique immutable tags first, then move convenience tags only after success. Recovery procedures need a known prior digest and retention policy that keeps it available.
+
+Registry audit should review package writers, readers, deletion rights, token lifetime, tag protection, retention, and access logs. Those settings are outside workflow files, so they remain validation questions here rather than implementation claims.
+
 ## Practical Exercise
 
 Annotate one workflow: trigger, permissions, login, image name, tags, scan point, cache, digest gap, and consumer.
