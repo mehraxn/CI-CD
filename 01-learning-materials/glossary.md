@@ -14,13 +14,17 @@ Short definitions for terms used throughout these learning materials.
 - **Cancellation:** Stopping a running pipeline, job, or step before it finishes, by a person, a concurrency rule, or fail-fast behavior.
 - **CI (continuous integration):** Frequently integrating small changes and validating them with automated checks.
 - **Commit:** A Git snapshot with metadata and one or more parent relationships.
+- **Composite action:** A reusable, packaged collection of steps that runs inside the calling job on the caller's runner.
 - **Concurrency group:** A named limit that controls how many runs of the same logical pipeline execute at once, by cancelling or queueing others.
 - **Condition:** A runtime rule that decides whether a job or step executes within an already-started run.
+- **Configuration variable:** A non-sensitive setting stored in platform settings rather than the pipeline file, such as a GitHub repository variable.
+- **Context:** A structured object of platform-provided data, such as event details or secrets, readable by pipeline expressions.
 - **Continuous delivery:** Keeping verified software releasable while production release may remain a human or business decision.
 - **Continuous deployment:** Automatically releasing every eligible change that passes required controls to production.
 - **Critical path:** The slowest dependency chain in a pipeline, which sets the minimum possible total duration.
 - **DAG (directed acyclic graph):** A dependency graph with one-way edges and no cycles, representing job ordering and possible parallel execution.
 - **DAST:** Dynamic application security testing performed against a running application.
+- **Declarative pipeline:** Pipeline configuration that describes the desired structure — jobs, triggers, settings — rather than step-by-step control flow.
 - **Dependency:** A declared relationship requiring one job to finish before another starts.
 - **Deployment:** Installing or activating a software version in an environment.
 - **Deterministic failure:** A failure that recurs identically for the same inputs; retrying it does not help.
@@ -28,9 +32,12 @@ Short definitions for terms used throughout these learning materials.
 - **Downstream job:** A job that depends on another job's result and runs after it.
 - **Environment:** A target context such as development, test, staging, or production.
 - **Environment protection:** Platform rules, such as required reviewers, that guard deployments to a named environment.
+- **Environment variable:** A key-value pair visible to processes during a step, settable at workflow, job, or step scope.
+- **Ephemeral runner:** A runner that serves a single job and is then destroyed, limiting state and credential persistence.
 - **Event:** Something that happened, such as a push, pull request, schedule tick, or API call, which trigger rules may match.
 - **Executor:** The process or environment a CI system uses to run job commands; related to runner and agent.
 - **Exit code:** A number a command returns on completion; 0 means success and any other value signals failure.
+- **Expression:** Platform-evaluated syntax, such as `${{ ... }}`, that reads contexts and computes values before commands run.
 - **Fail-fast:** Stopping remaining related work, such as sibling matrix jobs, as soon as one part fails.
 - **Fan-in:** Several parallel jobs converging into one job that requires all of them.
 - **Fan-out:** One job's completion releasing several jobs to run in parallel.
@@ -39,20 +46,36 @@ Short definitions for terms used throughout these learning materials.
 - **Filter:** A trigger-level rule, such as a branch or path pattern, that decides whether an event starts a run at all.
 - **Flaky test:** A test that passes and fails unpredictably without code changes, indicating a test or environment defect.
 - **GitFlow:** A branching model using long-lived development and main branches plus feature, release, and hotfix branches.
+- **GitHub Actions:** GitHub's built-in CI/CD platform, configured through YAML workflow files under `.github/workflows/`.
 - **GitHub Flow:** A simple model using a deployable main branch, short branches, pull requests, and frequent integration.
+- **`GITHUB_TOKEN`:** The automatic, short-lived token a GitHub Actions run receives, with rights set by the `permissions` configuration.
+- **`.gitlab-ci.yml`:** The file at a repository root that defines a GitLab CI/CD pipeline.
+- **GitLab CI/CD:** GitLab's built-in CI/CD platform, defining stage- and job-based pipelines executed by GitLab Runners.
+- **GitLab Runner:** The worker process that registers with GitLab and executes pipeline jobs through a configured executor.
 - **GitOps:** Operating declarative systems through version-controlled desired state and automated reconciliation.
+- **Hosted runner:** A provider-managed execution machine, typically fresh per job and maintained by the CI/CD platform.
 - **Idempotency:** The property that running an operation again produces the same end state as running it once.
 - **Immutable artifact:** An artifact whose contents cannot change after publication.
 - **Infrastructure as Code (IaC):** Managing infrastructure through versioned, machine-readable definitions.
+- **Input:** A typed value supplied to a workflow or component when it is called or manually dispatched.
+- **Jenkins:** A self-hosted automation server using a controller-and-agent architecture, configured largely through plugins and Jenkinsfiles.
+- **Jenkins agent:** A worker process that executes Jenkins pipeline work on a node.
+- **Jenkins controller:** The Jenkins server component that schedules work, stores configuration, and serves the UI.
+- **Jenkinsfile:** A Groovy file, declarative or scripted, that defines a Jenkins pipeline as code.
+- **Jenkins node:** A machine attached to Jenkins that offers one or more executors for running jobs.
 - **Job:** A group of steps executed together on a runner.
 - **Lockfile:** A file recording exact resolved dependency versions.
 - **Manual approval:** A human decision required before a pipeline may perform its next action.
+- **Mapping:** A YAML structure of named key-value pairs, nested by indentation.
 - **Matrix build:** Repeated pipeline work across combinations such as versions or operating systems.
 - **Merge:** Combining the histories and content of Git branches.
 - **Merge request:** A platform term for a proposed branch integration, similar to a pull request.
 - **OIDC:** OpenID Connect, often used by pipelines to obtain short-lived cloud credentials.
+- **Output:** A small named value a step or job publishes for later steps or dependent jobs; for metadata, not files.
 - **Parallelism:** Running independent work at the same time to shorten total duration at the cost of more concurrent resources.
+- **Persistent runner:** A runner that serves many jobs over time, requiring deliberate cleanup and hardening against accumulated state.
 - **Pipeline:** An automated sequence or graph that builds, verifies, and delivers changes.
+- **Pipeline as Code:** Storing pipeline configuration as versioned files in source control, changed through commits and review.
 - **Policy as Code:** Machine-enforceable policies stored and reviewed as code.
 - **Progressive delivery:** Gradually increasing a release's exposure based on controls and observations.
 - **Protected branch:** A branch governed by server-side rules that restrict updates, deletion, or merging.
@@ -65,13 +88,21 @@ Short definitions for terms used throughout these learning materials.
 - **Remote repository:** A repository accessed over a network for exchanging Git objects and references.
 - **Repository:** A version-controlled project including its recorded history and references.
 - **Retry:** Running failed work again, appropriate mainly for transient failures and bounded by a limit.
+- **Reusable workflow:** A workflow invoked by another workflow at the job level, with declared inputs, outputs, and secrets.
 - **Rollback:** Restoring a previously known-good version or state.
 - **Roll-forward:** Recovering by deploying a new corrective version rather than reverting.
 - **Runner:** The compute environment that receives and executes pipeline jobs.
+- **Runner label:** A routing attribute that matches jobs to runners in GitHub Actions; not a security boundary.
+- **Runner tag:** GitLab's routing attribute matching jobs to runners; not a security boundary.
 - **SAST:** Static application security testing that analyzes source or compiled code without running the application.
 - **SBOM:** A software bill of materials listing components included in a software product.
+- **Scripted pipeline:** Pipeline configuration written as step-by-step imperative code, such as Jenkins scripted Groovy.
 - **Secret:** Sensitive data, such as a token or password, requiring controlled storage and access.
+- **Self-hosted runner:** An execution machine operated by the team rather than the platform, gaining customization and internal access at the cost of maintenance and security responsibility.
 - **Semantic Versioning:** A major.minor.patch convention that communicates defined compatibility changes.
+- **Sequence:** A YAML structure holding an ordered list of items, each introduced by `- `.
+- **Service container:** A helper container, such as a database, started alongside a job and removed with it.
+- **Shared library:** Versioned reusable pipeline code imported by many pipelines, most commonly associated with Jenkins.
 - **Shift-left:** Moving useful quality, security, or operational feedback earlier in delivery.
 - **Shift-right:** Learning from running systems through production validation, observability, and user behavior.
 - **Stage:** A logical pipeline phase, often containing one or more jobs.
@@ -87,11 +118,15 @@ Short definitions for terms used throughout these learning materials.
 - **Trigger:** A configured rule that decides whether an event starts a workflow or pipeline.
 - **Trunk-based development:** Frequent integration into one shared trunk using tiny changes or very short-lived branches.
 - **Upstream job:** A job whose result other jobs depend on and wait for.
+- **Variable precedence:** The rule deciding which value wins when the same variable name is set at several levels; the most specific scope usually wins.
+- **Variable scope:** The region of a pipeline — workflow, job, or step — in which a variable is defined and visible.
 - **Workflow:** A platform-defined automated process made of one or more jobs.
 - **Workflow as code:** Storing an automated process in version-controlled configuration.
 - **Workflow run:** A single execution of a workflow, created after a trigger rule matches an event.
+- **Workflow template:** A starting pipeline file copied into a repository and maintained independently afterward.
 - **Working directory:** The checked-out files that a Git user views and edits.
 - **Workspace:** The directory on a runner where a job checks out sources and produces files.
+- **YAML:** A human-readable data format based on indentation, mappings, and sequences, used by most CI/CD platforms for pipeline configuration.
 
 ## Navigation
 

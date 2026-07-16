@@ -52,17 +52,25 @@ This roadmap builds working literacy and practical habits in about 45 days. It d
 
 **Related repository project:** [Project 1 workflows](../Projects/1_project/taskops-cicd/.github/workflows/) and [Project 2 workflows](../Projects/2_project/kubeops-gitops/.github/workflows/).
 
-## Phase 4 — Days 14–18: Pipeline as Code and GitHub Actions
+## Phase 4 — Days 14–18: Pipeline as Code and Platforms
 
-**Topics:** [Pipeline as Code and Platforms](./04-pipeline-as-code-and-platforms/).
+**Topics:** [Pipeline as Code and Platforms](./04-pipeline-as-code-and-platforms/), covering [Pipeline as Code fundamentals](./04-pipeline-as-code-and-platforms/01-pipeline-as-code-fundamentals/), [YAML](./04-pipeline-as-code-and-platforms/02-yaml-fundamentals/), [variables and expressions](./04-pipeline-as-code-and-platforms/03-variables-contexts-expressions-and-outputs/), [reuse](./04-pipeline-as-code-and-platforms/04-reusable-workflows-templates-and-components/), [runners](./04-pipeline-as-code-and-platforms/05-runners-and-execution-environments/), [GitHub Actions](./04-pipeline-as-code-and-platforms/06-github-actions/), [Jenkins](./04-pipeline-as-code-and-platforms/07-jenkins/), and [GitLab CI/CD](./04-pipeline-as-code-and-platforms/08-gitlab-cicd/).
+
+**Day 14 — Pipeline as Code fundamentals:** Versioning, review, and auditing of pipeline configuration. Output: the Git-history inspection of one real workflow, with the revert command you would use written down (not executed).
+
+**Day 15 — YAML:** Mappings, sequences, scalars, block styles, quoting, schema validation, and syntax versus semantics. Output: a YAML correction exercise — fix the broken indentation example from the lesson in notes and label each error.
+
+**Day 16 — Data flow:** Variables, contexts, expressions, inputs, outputs, and a secrets overview. Output: a variable-scope map of TaskOps CD listing name, source, scope, sensitivity, and consumer for each value (names only, never secret values).
+
+**Day 17 — Reuse and runners:** Reusable workflows, templates, composite actions, and execution environments. Outputs: a written reuse proposal for the duplicated TaskOps quality checks, and a hosted-versus-self-hosted runner comparison for one job.
+
+**Day 18 — Platforms:** GitHub Actions in depth, Jenkins overview, GitLab CI/CD overview, and platform comparison. Outputs: one fully annotated real workflow and a platform-selection table applying the selection factors to a team scenario you invent.
 
 **Learning goals:** Must learn basic YAML and the structure of a GitHub Actions workflow. Should understand contexts, expressions, variables, reusable workflows, runner boundaries, and how Jenkins and GitLab CI/CD differ conceptually. Optionally create a reusable workflow in a separate exercise branch.
 
-**Practical activity:** Annotate an existing GitHub Actions file: events, permissions, jobs, runner, actions, commands, inputs, outputs, and expressions. Validate a harmless copied example rather than changing production behavior.
+**Expected output:** The five daily outputs above, centered on an annotated workflow and a platform-neutral version of its execution flow.
 
-**Expected output:** An annotated workflow and a platform-neutral version of its execution flow.
-
-**Related repository project:** [Project 2 — KubeOps GitOps](../Projects/2_project/kubeops-gitops/).
+**Related repository project:** [Project 1 — TaskOps CI/CD](../Projects/1_project/taskops-cicd/) and [Project 2 — KubeOps GitOps](../Projects/2_project/kubeops-gitops/).
 
 ## Phase 5 — Days 19–22: Builds, Dependencies, Testing, and Quality
 
