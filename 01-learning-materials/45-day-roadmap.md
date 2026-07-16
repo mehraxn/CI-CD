@@ -74,27 +74,41 @@ This roadmap builds working literacy and practical habits in about 45 days. It d
 
 ## Phase 5 — Days 19–22: Builds, Dependencies, Testing, and Quality
 
-**Topics:** [Builds, Dependencies, and Caching](./05-builds-dependencies-and-caching/) and [Automated Testing and Quality](./06-automated-testing-and-quality/).
+**Topics:** [Builds, Dependencies, and Caching](./05-builds-dependencies-and-caching/) (six lessons from [build lifecycle](./05-builds-dependencies-and-caching/01-build-lifecycle-and-build-tools/) to [multi-architecture builds](./05-builds-dependencies-and-caching/06-cross-platform-and-multi-architecture-builds/)) and [Automated Testing and Quality](./06-automated-testing-and-quality/) (eight lessons from [testing strategy](./06-automated-testing-and-quality/01-testing-strategy-and-test-pyramid/) to [flaky tests and optimization](./06-automated-testing-and-quality/08-parallel-tests-flaky-tests-and-optimization/)).
+
+**Day 19 — Build fundamentals:** Build lifecycle, build tools, and build inputs and outputs. Output: a build map of Project 1 (inputs, dependency files, build command, test command, output, container build, CI workflow).
+
+**Day 20 — Dependencies and reproducibility:** Dependency management, lockfiles, version pinning, and reproducible builds. Outputs: a classification of every dependency file in the repository (manifest / pinned list / lockfile / constraints), and a version-reference audit of Project 1 separating pinned from floating references.
+
+**Day 21 — Caching, metadata, platforms, and static checks:** Build caching, build metadata, cross-platform builds, testing strategy, and formatting/linting/static analysis. Outputs: an analysis of the two real caches in TaskOps CI (key inputs and invalidation), a test-level classification of all three projects' suites, and a static-check map of every tool in TaskOps CI.
+
+**Day 22 — Test levels and quality:** Unit, integration, API, and end-to-end tests, coverage, quality gates, and flaky tests. Outputs: a quality-gate table for both TaskOps workflows, a proposed coverage-gate design, and the flaky-test diagnosis exercise (five failure scenarios classified with responses).
 
 **Learning goals:** Must learn build inputs, dependency pinning, unit and integration checks, and the difference between artifacts and caches. Should understand reproducibility, static analysis, coverage, quality gates, test parallelism, and flaky-test handling. Performance and contract testing are optional advanced practice.
 
 **Practical activity:** Trace Project 1 from dependency installation through its test commands. Run existing safe tests if the local prerequisites are available, then identify one candidate cache and its invalidation input.
 
-**Expected output:** A build-and-test flow, recorded test result, and proposed cache key with rationale.
+**Expected output:** The daily outputs above, centered on a build-and-test flow, recorded test result, and cache analysis with rationale.
 
-**Related repository project:** [Project 1 — TaskOps CI/CD](../Projects/1_project/taskops-cicd/).
+**Related repository project:** [Project 1 — TaskOps CI/CD](../Projects/1_project/taskops-cicd/), with dependency-style contrasts from [Project 2](../Projects/2_project/kubeops-gitops/) and [Project 3](../Projects/3_project/).
 
 ## Phase 6 — Days 23–25: Artifacts, Registries, Environments, and Secrets
 
-**Topics:** [Artifacts, Packages, and Registries](./07-artifacts-packages-and-registries/) and [Environments, Configuration, and Secrets](./08-environments-configuration-and-secrets/).
+**Topics:** [Artifacts, Packages, and Registries](./07-artifacts-packages-and-registries/) (seven lessons from [artifacts and caches](./07-artifacts-packages-and-registries/01-artifacts-caches-and-job-outputs/) to [retention and cleanup](./07-artifacts-packages-and-registries/07-retention-cleanup-access-and-replication/)) and [Environments, Configuration, and Secrets](./08-environments-configuration-and-secrets/) (seven lessons from [environment strategy](./08-environments-configuration-and-secrets/01-environment-strategy-and-parity/) to [drift and cleanup](./08-environments-configuration-and-secrets/07-configuration-validation-drift-and-cleanup/)).
+
+**Day 23 — Outputs and registries:** Artifacts versus caches and job outputs, package formats, package and container registries, and registry authentication. Outputs: an artifact classification table for this repository's pipeline outputs, and a registry reference map decomposing one real GHCR image reference (registry, namespace, repository, tag, source revision, publisher, consumer).
+
+**Day 24 — Identity and lifecycle:** Artifact naming and metadata, immutability, promotion, release bundles, and retention and cleanup. Outputs: an artifact-naming proposal for TaskOps, a promotion diagram for KubeOps (including which Git files change at each promotion), and a retention-policy proposal for the accumulated GHCR images.
+
+**Day 25 — Environments, configuration, and secrets:** Environment strategy and parity, externalized configuration, secret management, OIDC and short-lived credentials, protected environments, and drift. Outputs: an environment map of all three projects, a configuration inventory for TaskOps, a secret-reference inventory (names only, never values), an OIDC trust-policy design, and a production-environment control proposal.
 
 **Learning goals:** Must learn immutable artifact identity, registries, external configuration, and secret handling. Should understand promotion, retention, protected environments, preview environments, OIDC, and drift validation. Optional study includes enterprise secret rotation and cross-account registries.
 
 **Practical activity:** Follow Project 2's image path from Dockerfile to release workflow and deployment reference. Inventory configuration versus secret inputs without displaying secret values.
 
-**Expected output:** An artifact lineage diagram and a configuration/secret boundary table.
+**Expected output:** The daily outputs above, centered on an artifact lineage diagram and a configuration/secret boundary table.
 
-**Related repository project:** [Project 2 — KubeOps GitOps](../Projects/2_project/kubeops-gitops/).
+**Related repository project:** [Project 2 — KubeOps GitOps](../Projects/2_project/kubeops-gitops/), with deployment and secret-injection contrasts from [Project 1 — TaskOps CI/CD](../Projects/1_project/taskops-cicd/) and validation examples from [Project 3](../Projects/3_project/).
 
 ## Phase 7 — Days 26–29: Delivery, Releases, and Deployment Strategies
 

@@ -14,10 +14,10 @@ Study the topics in numbered order. Early sections establish terminology and pip
 | 02 | [Git and Collaboration](./02-git-and-collaboration/) | Use version-control practices that support safe automation | Complete |
 | 03 | [Pipeline Architecture](./03-pipeline-architecture/) | Understand triggers, execution units, dependencies, and failure handling | Complete |
 | 04 | [Pipeline as Code and Platforms](./04-pipeline-as-code-and-platforms/) | Describe pipeline configuration, reuse, runners, and major platforms | Complete |
-| 05 | [Builds, Dependencies, and Caching](./05-builds-dependencies-and-caching/) | Produce efficient and repeatable builds | Not started |
-| 06 | [Automated Testing and Quality](./06-automated-testing-and-quality/) | Place appropriate automated checks in a pipeline | Not started |
-| 07 | [Artifacts, Packages, and Registries](./07-artifacts-packages-and-registries/) | Store, identify, promote, and retain build outputs | Not started |
-| 08 | [Environments, Configuration, and Secrets](./08-environments-configuration-and-secrets/) | Separate deployable code from environment-specific settings and credentials | Not started |
+| 05 | [Builds, Dependencies, and Caching](./05-builds-dependencies-and-caching/) | Produce efficient and repeatable builds | Complete |
+| 06 | [Automated Testing and Quality](./06-automated-testing-and-quality/) | Place appropriate automated checks in a pipeline | Complete |
+| 07 | [Artifacts, Packages, and Registries](./07-artifacts-packages-and-registries/) | Store, identify, promote, and retain build outputs | Complete |
+| 08 | [Environments, Configuration, and Secrets](./08-environments-configuration-and-secrets/) | Separate deployable code from environment-specific settings and credentials | Complete |
 | 09 | [Continuous Delivery and Releases](./09-continuous-delivery-and-releases/) | Design controlled, traceable release flows | Not started |
 | 10 | [Deployment Strategies and Recovery](./10-deployment-strategies-and-recovery/) | Compare rollout strategies and plan safe recovery | Not started |
 | 11 | [Docker in CI/CD](./11-docker-in-cicd/) | Build, test, scan, publish, and deploy container images | Not started |
@@ -36,10 +36,10 @@ The materials explain the decisions behind CI/CD practices. The existing [projec
 - [x] 02 — Git and Collaboration
 - [x] 03 — Pipeline Architecture
 - [x] 04 — Pipeline as Code and Platforms
-- [ ] 05 — Builds, Dependencies, and Caching
-- [ ] 06 — Automated Testing and Quality
-- [ ] 07 — Artifacts, Packages, and Registries
-- [ ] 08 — Environments, Configuration, and Secrets
+- [x] 05 — Builds, Dependencies, and Caching
+- [x] 06 — Automated Testing and Quality
+- [x] 07 — Artifacts, Packages, and Registries
+- [x] 08 — Environments, Configuration, and Secrets
 - [ ] 09 — Continuous Delivery and Releases
 - [ ] 10 — Deployment Strategies and Recovery
 - [ ] 11 — Docker in CI/CD
