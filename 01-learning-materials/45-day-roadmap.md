@@ -10,11 +10,11 @@ This roadmap builds working literacy and practical habits in about 45 days. It d
 
 ## Phase 1 — Days 1–4: CI/CD Fundamentals
 
-**Topics:** [CI/CD Fundamentals](./01-cicd-fundamentals/) and glossary orientation.
+**Topics:** [CI/CD Fundamentals](./01-cicd-fundamentals/), including [continuous integration](./01-cicd-fundamentals/01-continuous-integration/), [continuous delivery](./01-cicd-fundamentals/02-continuous-delivery/), [continuous deployment](./01-cicd-fundamentals/03-continuous-deployment/), [their comparison](./01-cicd-fundamentals/04-ci-vs-delivery-vs-deployment/), [pipeline anatomy](./01-cicd-fundamentals/05-pipeline-anatomy/), and [feedback loops](./01-cicd-fundamentals/06-devops-and-feedback-loops/).
 
 **Learning goals:** Must learn the distinctions among continuous integration, delivery, and deployment and identify pipeline inputs, checks, outputs, and feedback. Should understand the relationship between small changes and short feedback loops. Optionally compare organizational adoption models.
 
-**Practical activity:** Read Project 1's CI and CD workflows. Sketch which events start them, what each job verifies, and where delivery or deployment begins. Do not change the workflows.
+**Practical activity:** Read Project 1's CI and CD workflows. Identify each trigger, job, runner, step group, gate, and artifact; sketch where integration ends and delivery or deployment begins. Compare the result with the four feedback loops in the lesson. Do not change the workflows.
 
 **Expected output:** A one-page pipeline map and a short explanation of the three continuous practices.
 
@@ -22,11 +22,11 @@ This roadmap builds working literacy and practical habits in about 45 days. It d
 
 ## Phase 2 — Days 5–8: Git and Collaboration
 
-**Topics:** [Git and Collaboration](./02-git-and-collaboration/).
+**Topics:** [Git and Collaboration](./02-git-and-collaboration/), from [Git fundamentals](./02-git-and-collaboration/01-git-fundamentals/) and [commit history](./02-git-and-collaboration/02-commits-and-history/) through [branches](./02-git-and-collaboration/03-branches-merging-and-rebasing/), [pull requests](./02-git-and-collaboration/04-pull-requests-and-code-review/), [strategies](./02-git-and-collaboration/05-branching-strategies/), [release tags](./02-git-and-collaboration/06-tags-versioning-and-releases/), and [branch protections](./02-git-and-collaboration/07-protected-branches-and-merge-rules/).
 
 **Learning goals:** Must learn commits, branches, merges, pull requests, and tags. Should understand rebasing, branch protections, semantic versioning, and the tradeoffs of common branching strategies. Optionally study release automation based on conventional commit formats.
 
-**Practical activity:** Use a temporary learning branch to make a focused documentation change, inspect its history, and describe appropriate review and merge rules. Identify branch and tag filters in existing workflows.
+**Practical activity:** In a disposable practice repository, create focused commits, create and merge a short-lived branch, and inspect the history. Draft a pull request, observe which CI event would run, create an annotated local tag without pushing it, and review branch-protection options without changing repository settings.
 
 **Expected output:** A clean sample commit history and a proposed collaboration checklist.
 
@@ -34,13 +34,21 @@ This roadmap builds working literacy and practical habits in about 45 days. It d
 
 ## Phase 3 — Days 9–13: Pipeline Architecture
 
-**Topics:** [Pipeline Architecture](./03-pipeline-architecture/).
+**Topics:** [Pipeline Architecture](./03-pipeline-architecture/), covering [triggers and events](./03-pipeline-architecture/01-triggers-and-events/), [stages, jobs, steps, and tasks](./03-pipeline-architecture/02-stages-jobs-steps-and-tasks/), [dependencies and DAG pipelines](./03-pipeline-architecture/03-job-dependencies-and-dag-pipelines/), [conditions and filters](./03-pipeline-architecture/04-conditions-and-filters/), [matrix builds and parallelism](./03-pipeline-architecture/05-matrix-builds-and-parallelism/), [approvals and quality gates](./03-pipeline-architecture/06-manual-approvals-and-quality-gates/), and [failure handling](./03-pipeline-architecture/07-retries-timeouts-cancellation-and-failures/).
+
+**Day 9 — Triggers:** Pipeline triggers, repository events (push, pull request, tag), and manual and scheduled execution. Output: a trigger comparison table for the Project 1 and Project 2 workflows, noting branch filters and any duplicate-run risks.
+
+**Day 10 — Execution units:** Stages, jobs, steps, and runner isolation, including why files and variables do not automatically cross job boundaries. Output: a mapped workflow — a written `Workflow → Job → Step` tree of one existing workflow, without modifying it.
+
+**Day 11 — Dependencies:** Job dependencies, DAG pipelines, parallel jobs, and the critical path. Output: a hand-drawn or Markdown DAG of one Project 1 workflow, with its approximate critical path marked and any parallelizable work identified.
+
+**Day 12 — Selection and expansion:** Conditions, filters, and matrix builds. Output: a small matrix calculation (for example, 3 operating systems × 2 runtime versions = 6 jobs) and a written conditional-deployment example kept in notes, not in a workflow file.
+
+**Day 13 — Gates and failure handling:** Manual approvals, automated quality gates, failures, retries, timeouts, and concurrency. Output: a proposed quality-gate design for one project and a failure-handling table classifying five scenarios (retry, do not retry, investigate first, cancel outdated run, serialize execution).
 
 **Learning goals:** Must learn triggers, jobs, steps, dependencies, conditions, and failure behavior. Should understand DAGs, matrices, parallelism, approvals, timeouts, retries, and cancellation. Optionally model a large monorepo pipeline.
 
-**Practical activity:** Diagram one Project 1 workflow and one Project 2 workflow as dependency graphs. Mark work that is sequential, parallelizable, conditional, or gated, and note how failure propagates.
-
-**Expected output:** Two annotated pipeline diagrams and a short comparison of their architecture.
+**Expected output:** The five daily outputs above, culminating in two annotated pipeline diagrams and a short comparison of Project 1 and Project 2 architecture.
 
 **Related repository project:** [Project 1 workflows](../Projects/1_project/taskops-cicd/.github/workflows/) and [Project 2 workflows](../Projects/2_project/kubeops-gitops/.github/workflows/).
 

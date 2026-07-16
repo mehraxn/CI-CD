@@ -7,45 +7,91 @@ Short definitions for terms used throughout these learning materials.
 - **Artifact promotion:** Advancing the same verified artifact through successive environments.
 - **Attestation:** Signed evidence describing how an artifact or action was produced.
 - **Blue-green deployment:** A release method that switches traffic between two complete environments.
+- **Branch:** A movable Git reference that points to a commit and names a line of work.
 - **Build:** The process that converts source and dependencies into a testable or deployable output.
-- **Cache:** Reusable intermediate data stored to speed up later work.
+- **Cache:** Reusable intermediate data stored to speed later work; it is not a release artifact.
 - **Canary deployment:** A rollout that exposes a new version to a small subset before expansion.
-- **CI (continuous integration):** Frequently merging changes and validating them with automated checks.
-- **Continuous delivery:** Keeping software in a releasable state while production deployment remains a decision.
-- **Continuous deployment:** Automatically deploying every change that passes the required controls.
+- **Cancellation:** Stopping a running pipeline, job, or step before it finishes, by a person, a concurrency rule, or fail-fast behavior.
+- **CI (continuous integration):** Frequently integrating small changes and validating them with automated checks.
+- **Commit:** A Git snapshot with metadata and one or more parent relationships.
+- **Concurrency group:** A named limit that controls how many runs of the same logical pipeline execute at once, by cancelling or queueing others.
+- **Condition:** A runtime rule that decides whether a job or step executes within an already-started run.
+- **Continuous delivery:** Keeping verified software releasable while production release may remain a human or business decision.
+- **Continuous deployment:** Automatically releasing every eligible change that passes required controls to production.
+- **Critical path:** The slowest dependency chain in a pipeline, which sets the minimum possible total duration.
+- **DAG (directed acyclic graph):** A dependency graph with one-way edges and no cycles, representing job ordering and possible parallel execution.
 - **DAST:** Dynamic application security testing performed against a running application.
-- **DAG:** A directed acyclic graph that represents job dependencies and possible parallel execution.
+- **Dependency:** A declared relationship requiring one job to finish before another starts.
 - **Deployment:** Installing or activating a software version in an environment.
-- **DORA metrics:** Delivery-performance measures covering deployment frequency, lead time, change failure rate, and recovery time.
+- **Deterministic failure:** A failure that recurs identically for the same inputs; retrying it does not help.
+- **DORA metrics:** Delivery measures covering deployment frequency, lead time, change failure rate, and recovery time.
+- **Downstream job:** A job that depends on another job's result and runs after it.
 - **Environment:** A target context such as development, test, staging, or production.
+- **Environment protection:** Platform rules, such as required reviewers, that guard deployments to a named environment.
+- **Event:** Something that happened, such as a push, pull request, schedule tick, or API call, which trigger rules may match.
+- **Executor:** The process or environment a CI system uses to run job commands; related to runner and agent.
+- **Exit code:** A number a command returns on completion; 0 means success and any other value signals failure.
+- **Fail-fast:** Stopping remaining related work, such as sibling matrix jobs, as soon as one part fails.
+- **Fan-in:** Several parallel jobs converging into one job that requires all of them.
+- **Fan-out:** One job's completion releasing several jobs to run in parallel.
 - **Feature flag:** A runtime control that enables or disables behavior independently of deployment.
+- **Feedback loop:** A cycle in which results from review, automation, operations, or users guide the next change.
+- **Filter:** A trigger-level rule, such as a branch or path pattern, that decides whether an event starts a run at all.
+- **Flaky test:** A test that passes and fails unpredictably without code changes, indicating a test or environment defect.
+- **GitFlow:** A branching model using long-lived development and main branches plus feature, release, and hotfix branches.
+- **GitHub Flow:** A simple model using a deployable main branch, short branches, pull requests, and frequent integration.
 - **GitOps:** Operating declarative systems through version-controlled desired state and automated reconciliation.
+- **Idempotency:** The property that running an operation again produces the same end state as running it once.
+- **Immutable artifact:** An artifact whose contents cannot change after publication.
 - **Infrastructure as Code (IaC):** Managing infrastructure through versioned, machine-readable definitions.
-- **Immutable artifact:** An artifact whose contents cannot change after publishing.
 - **Job:** A group of steps executed together on a runner.
 - **Lockfile:** A file recording exact resolved dependency versions.
+- **Manual approval:** A human decision required before a pipeline may perform its next action.
 - **Matrix build:** Repeated pipeline work across combinations such as versions or operating systems.
+- **Merge:** Combining the histories and content of Git branches.
+- **Merge request:** A platform term for a proposed branch integration, similar to a pull request.
 - **OIDC:** OpenID Connect, often used by pipelines to obtain short-lived cloud credentials.
+- **Parallelism:** Running independent work at the same time to shorten total duration at the cost of more concurrent resources.
 - **Pipeline:** An automated sequence or graph that builds, verifies, and delivers changes.
 - **Policy as Code:** Machine-enforceable policies stored and reviewed as code.
 - **Progressive delivery:** Gradually increasing a release's exposure based on controls and observations.
+- **Protected branch:** A branch governed by server-side rules that restrict updates, deletion, or merging.
 - **Provenance:** Verifiable information about an artifact's source and production process.
+- **Pull request:** A hosted-platform proposal to review and integrate one branch into another.
 - **Quality gate:** A required condition that must pass before work can proceed.
+- **Rebase:** Replaying changes onto a new base as new commits, thereby rewriting commit identities.
 - **Registry:** A service that stores and distributes packages or container images.
-- **Release:** A named, versioned set of changes made available for use or deployment.
+- **Release:** A named, versioned set of changes made available for intended use.
+- **Remote repository:** A repository accessed over a network for exchanging Git objects and references.
+- **Repository:** A version-controlled project including its recorded history and references.
+- **Retry:** Running failed work again, appropriate mainly for transient failures and bounded by a limit.
 - **Rollback:** Restoring a previously known-good version or state.
 - **Roll-forward:** Recovering by deploying a new corrective version rather than reverting.
 - **Runner:** The compute environment that receives and executes pipeline jobs.
 - **SAST:** Static application security testing that analyzes source or compiled code without running the application.
 - **SBOM:** A software bill of materials listing components included in a software product.
 - **Secret:** Sensitive data, such as a token or password, requiring controlled storage and access.
-- **Semantic versioning:** A versioning convention using major, minor, and patch numbers to communicate compatibility.
+- **Semantic Versioning:** A major.minor.patch convention that communicates defined compatibility changes.
+- **Shift-left:** Moving useful quality, security, or operational feedback earlier in delivery.
+- **Shift-right:** Learning from running systems through production validation, observability, and user behavior.
 - **Stage:** A logical pipeline phase, often containing one or more jobs.
+- **Staging area:** Git's proposed content for the next commit, also called the index.
+- **Status check:** A result attached to a commit that repository rules may require before merge.
 - **Step:** An individual command or action within a job.
 - **Supply chain:** The tools, dependencies, processes, and systems used to produce and deliver software.
-- **Trigger:** An event or schedule that starts a workflow or pipeline.
+- **Tag:** A Git reference commonly used as a stable name for a release commit.
+- **Task:** A platform term for a reusable unit of work within a job; comparable to a step or packaged action.
+- **Test sharding:** Dividing one large test suite into groups that run in parallel on separate workers.
+- **Timeout:** A time limit that stops a hanging job or step and reports it as failed.
+- **Transient failure:** A failure caused by a temporary external condition that may genuinely succeed on retry.
+- **Trigger:** A configured rule that decides whether an event starts a workflow or pipeline.
+- **Trunk-based development:** Frequent integration into one shared trunk using tiny changes or very short-lived branches.
+- **Upstream job:** A job whose result other jobs depend on and wait for.
 - **Workflow:** A platform-defined automated process made of one or more jobs.
-- **Workflow as code:** Storing the automated process in version-controlled configuration.
+- **Workflow as code:** Storing an automated process in version-controlled configuration.
+- **Workflow run:** A single execution of a workflow, created after a trigger rule matches an event.
+- **Working directory:** The checked-out files that a Git user views and edits.
+- **Workspace:** The directory on a runner where a job checks out sources and produces files.
 
 ## Navigation
 

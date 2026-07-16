@@ -10,9 +10,9 @@ Study the topics in numbered order. Early sections establish terminology and pip
 
 | Number | Topic | Main objective | Status |
 |--------|-------|----------------|--------|
-| 01 | [CI/CD Fundamentals](./01-cicd-fundamentals/) | Distinguish integration, delivery, deployment, pipelines, and feedback loops | Not started |
-| 02 | [Git and Collaboration](./02-git-and-collaboration/) | Use version-control practices that support safe automation | Not started |
-| 03 | [Pipeline Architecture](./03-pipeline-architecture/) | Understand triggers, execution units, dependencies, and failure handling | Not started |
+| 01 | [CI/CD Fundamentals](./01-cicd-fundamentals/) | Distinguish integration, delivery, deployment, pipelines, and feedback loops | Complete |
+| 02 | [Git and Collaboration](./02-git-and-collaboration/) | Use version-control practices that support safe automation | Complete |
+| 03 | [Pipeline Architecture](./03-pipeline-architecture/) | Understand triggers, execution units, dependencies, and failure handling | Complete |
 | 04 | [Pipeline as Code and Platforms](./04-pipeline-as-code-and-platforms/) | Describe pipeline configuration, reuse, runners, and major platforms | Not started |
 | 05 | [Builds, Dependencies, and Caching](./05-builds-dependencies-and-caching/) | Produce efficient and repeatable builds | Not started |
 | 06 | [Automated Testing and Quality](./06-automated-testing-and-quality/) | Place appropriate automated checks in a pipeline | Not started |
@@ -32,9 +32,9 @@ The materials explain the decisions behind CI/CD practices. The existing [projec
 
 ## Progress Checklist
 
-- [ ] 01 — CI/CD Fundamentals
-- [ ] 02 — Git and Collaboration
-- [ ] 03 — Pipeline Architecture
+- [x] 01 — CI/CD Fundamentals
+- [x] 02 — Git and Collaboration
+- [x] 03 — Pipeline Architecture
 - [ ] 04 — Pipeline as Code and Platforms
 - [ ] 05 — Builds, Dependencies, and Caching
 - [ ] 06 — Automated Testing and Quality
