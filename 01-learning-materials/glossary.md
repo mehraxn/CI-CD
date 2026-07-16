@@ -372,6 +372,69 @@ Short definitions for terms used throughout these learning materials.
 - **Worker node:** Cluster machine that runs scheduled Pods.
 - **Writable layer:** Mutable container filesystem layer that disappears with the container unless persisted elsewhere.
 
+## DevSecOps and Supply-Chain Terms
+
+- **Attack surface:** Everything about a system that an attacker can reach or influence.
+- **Compensating control:** A measure that reduces a risk while the underlying weakness remains unfixed.
+- **Cosign:** A Sigstore tool for signing and verifying container images and artifacts.
+- **CVE:** A public identifier for a specific known vulnerability.
+- **CVSS:** A 0–10 scoring system for vulnerability severity, independent of any project's actual exposure.
+- **CycloneDX:** An SBOM format, alongside SPDX.
+- **Defense in depth:** Layered controls so one failure does not become a breach.
+- **DevSecOps:** Integrating security responsibility and automation throughout software delivery.
+- **Exploitability:** Whether a practical attack exists for a vulnerability in a given configuration.
+- **in-toto:** An attestation format family for supply-chain statements.
+- **Keyless signing:** Signing with short-lived certificates issued against a workload's OIDC identity instead of stored keys.
+- **Reachability:** Whether the application actually invokes a vulnerable code path.
+- **Risk acceptance:** A documented, owned, expiring decision to tolerate a known risk.
+- **SARIF:** A standard interchange format for static-analysis findings.
+- **SCA (software composition analysis):** Analyzing third-party components for versions, vulnerabilities, and licenses.
+- **Secret scanning:** Detecting credentials and secret-like material in source, history, or configuration.
+- **Security by design:** Building security into requirements and architecture rather than adding it before release.
+- **Sigstore:** An open ecosystem for keyless signing and transparency logs.
+- **SLSA:** A framework of maturity levels for build and supply-chain integrity.
+- **SPDX:** An SBOM format, alongside CycloneDX.
+- **Threat:** A possible cause of harm.
+- **Threat modeling:** Structured analysis of what could go wrong across a system's assets and trust boundaries.
+- **Transparency log:** A public, append-only record of signing events that anyone can audit.
+- **Triage:** Validating, deduplicating, and risk-assessing findings to choose a response.
+- **Trust boundary:** A point where data or control crosses between different trust levels.
+- **Vulnerability management:** The process of triaging, remediating, accepting, retesting, and closing findings.
+- **Zero-day:** A vulnerability exploited before a fix or advisory exists.
+
+## Observability and Optimization Terms
+
+- **Alert fatigue:** Desensitization caused by frequent low-value alerts, eroding trust in paging.
+- **Blameless postmortem:** An incident review focused on systems and conditions rather than punishing individuals.
+- **Burn rate:** How fast an error budget is being consumed.
+- **Cardinality:** The number of distinct label combinations of a metric; unbounded labels explode cost.
+- **Change failure rate:** The proportion of production changes causing failure that requires remediation.
+- **Correlation ID:** An identifier carried through logs and services so one request's events can be connected.
+- **Counter:** A metric that only increases, counting occurrences.
+- **Deployment frequency:** How often successful production deployments occur.
+- **Deployment marker:** An annotation recording when a version was deployed, aligning telemetry with releases.
+- **Error budget:** The unreliability an SLO tolerates, spendable on change and risk.
+- **Gauge:** A metric that can rise and fall, measuring a current value.
+- **Golden signals:** Latency, traffic, errors, and saturation — a core monitoring quartet.
+- **Grafana:** A dashboarding tool commonly visualizing Prometheus data.
+- **Histogram:** A metric recording a distribution in buckets, the basis of percentile analysis.
+- **Incident:** An event significantly affecting service or requiring coordinated response.
+- **Lead time for changes:** Time from code change to successful production deployment.
+- **Observability:** The ability to understand system behavior through available telemetry.
+- **On-call:** A staffing rotation guaranteeing someone responds to operational alerts.
+- **OpenTelemetry:** A vendor-neutral standard for instrumenting logs, metrics, and traces.
+- **Postmortem:** A structured review of an incident: what happened, why, and how to improve.
+- **Prometheus:** A pull-based metrics collection and time-series system.
+- **Queue time:** Time a job waits for an available runner before executing.
+- **Runbook:** Instructions for a known operational task or response, ideally near-executable.
+- **SLI (service level indicator):** A measured indicator of service behavior.
+- **SLO (service level objective):** A target for an SLI over a defined period.
+- **Span:** One timed operation within a trace.
+- **Structured logging:** Emitting logs as machine-parseable fields rather than prose.
+- **Telemetry:** Logs, metrics, traces, events, and related operational data a system emits.
+- **Time to restore service:** Time needed to recover after a change-related failure or incident.
+- **Trace:** The path and timing of one request across components, composed of spans.
+
 ## Navigation
 
 - [Back to Learning Materials](./README.md)

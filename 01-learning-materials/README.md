@@ -23,8 +23,8 @@ Study the topics in numbered order. Early sections establish terminology and pip
 | 11 | [Docker in CI/CD](./11-docker-in-cicd/) | Build, test, scan, publish, and deploy container images | Complete |
 | 12 | [Kubernetes and GitOps](./12-kubernetes-and-gitops/) | Deliver Kubernetes changes through declarative and GitOps workflows | Complete |
 | 13 | [Infrastructure as Code and Automation](./13-infrastructure-as-code-and-automation/) | Validate and apply repeatable infrastructure changes | Not started |
-| 14 | [DevSecOps and Supply-Chain Security](./14-devsecops-and-supply-chain-security/) | Integrate security controls throughout software delivery | Not started |
-| 15 | [Observability, Metrics, and Optimization](./15-observability-metrics-and-optimization/) | Measure pipeline and deployment health and improve the system | Not started |
+| 14 | [DevSecOps and Supply-Chain Security](./14-devsecops-and-supply-chain-security/) | Integrate security controls throughout software delivery | Complete |
+| 15 | [Observability, Metrics, and Optimization](./15-observability-metrics-and-optimization/) | Measure pipeline and deployment health and improve the system | Complete |
 
 ## Theory and Practical Projects
 
@@ -45,8 +45,8 @@ The materials explain the decisions behind CI/CD practices. The existing [projec
 - [x] 11 — Docker in CI/CD
 - [x] 12 — Kubernetes and GitOps
 - [ ] 13 — Infrastructure as Code and Automation
-- [ ] 14 — DevSecOps and Supply-Chain Security
-- [ ] 15 — Observability, Metrics, and Optimization
+- [x] 14 — DevSecOps and Supply-Chain Security
+- [x] 15 — Observability, Metrics, and Optimization
 
 ## Authoring Resources
 

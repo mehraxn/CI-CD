@@ -184,27 +184,35 @@ This roadmap builds working literacy and practical habits in about 45 days. It d
 
 ## Phase 11 — Days 41–42: DevSecOps
 
-**Topics:** [DevSecOps and Supply-Chain Security](./14-devsecops-and-supply-chain-security/).
+**Topics:** [DevSecOps and Supply-Chain Security](./14-devsecops-and-supply-chain-security/), covering [fundamentals](./14-devsecops-and-supply-chain-security/01-devsecops-fundamentals-and-security-by-design/), [SAST and secret scanning](./14-devsecops-and-supply-chain-security/02-sast-code-quality-and-secret-scanning/), [dependency analysis](./14-devsecops-and-supply-chain-security/03-dependency-license-and-software-composition-analysis/), [container and IaC scanning](./14-devsecops-and-supply-chain-security/04-container-kubernetes-and-iac-security-scanning/), [SBOMs and provenance](./14-devsecops-and-supply-chain-security/05-sbom-signing-provenance-and-attestations/), [pipeline security](./14-devsecops-and-supply-chain-security/06-secure-pipelines-permissions-actions-and-runners/), [DAST](./14-devsecops-and-supply-chain-security/07-dast-api-security-and-runtime-validation/), and [vulnerability management](./14-devsecops-and-supply-chain-security/08-vulnerability-management-exceptions-and-response/).
+
+**Day 41 — Finding weaknesses:** DevSecOps principles, SAST and secret scanning, dependency and license analysis, and container/Kubernetes/IaC scanning. Outputs: a threat-boundary map for TaskOps, a scanner map of every real check (tool, category, stage, blocking behavior, limitation), and the Trivy scan-before-push versus scan-after-push comparison.
+
+**Day 42 — Trust and response:** SBOMs, signing, and provenance; pipeline permissions, actions, and runners; DAST; and vulnerability management. Outputs: a workflow security audit of TaskOps CI, a designed evidence bundle for KubeOps, a safe DAST plan, and one complete sample vulnerability record.
 
 **Learning goals:** Must learn least privilege, secret scanning, dependency risk, SAST, and container scanning. Should understand DAST, IaC scanning, SBOMs, signing, provenance, attestations, and runner isolation. Formal supply-chain maturity frameworks are optional advanced study.
 
 **Practical activity:** Build a threat-oriented checklist for one existing workflow. Identify untrusted inputs, credential boundaries, dependencies, produced artifacts, and suitable controls without inventing results from scanners that were not run.
 
-**Expected output:** A pipeline threat checklist and prioritized security-control backlog.
+**Expected output:** The daily outputs above, centered on a pipeline threat checklist and prioritized security-control backlog.
 
 **Related repository project:** [Project 1](../Projects/1_project/taskops-cicd/) plus Project 3's IaC inputs.
 
 ## Phase 12 — Days 43–44: Observability and Optimization
 
-**Topics:** [Observability, Metrics, and Optimization](./15-observability-metrics-and-optimization/).
+**Topics:** [Observability, Metrics, and Optimization](./15-observability-metrics-and-optimization/), covering [signals](./15-observability-metrics-and-optimization/01-logs-metrics-traces-and-observability-fundamentals/), [pipeline debugging](./15-observability-metrics-and-optimization/02-pipeline-observability-debugging-and-evidence/), [deployment monitoring and SLOs](./15-observability-metrics-and-optimization/03-deployment-monitoring-alerting-slis-and-slos/), [DORA metrics](./15-observability-metrics-and-optimization/04-dora-metrics-and-delivery-performance/), [incidents and postmortems](./15-observability-metrics-and-optimization/05-incidents-runbooks-on-call-and-postmortems/), [pipeline bottlenecks](./15-observability-metrics-and-optimization/06-pipeline-duration-queues-caches-and-bottlenecks/), and [cost and dashboards](./15-observability-metrics-and-optimization/07-cost-capacity-dashboards-and-continuous-optimization/).
+
+**Day 43 — Signals and monitoring:** Logs, metrics, and traces; pipeline debugging and evidence; deployment monitoring, alerting, SLIs, and SLOs. Outputs: a telemetry inventory of all three projects, an annotated diagnostic map of TaskOps CI, and one complete SLO for the Project 3 application.
+
+**Day 44 — Performance and learning:** DORA metrics, incidents and runbooks, pipeline duration and bottlenecks, and cost and dashboards. Outputs: a DORA measurement design from repository data, a written runbook for a failed TaskOps deployment, a duration map of TaskOps CI, and a five-signal CI/CD scorecard.
 
 **Learning goals:** Must learn the difference between pipeline and deployment signals and the four DORA metrics. Should understand alert design, duration, queue time, cache effectiveness, incident response, runbooks, postmortems, and cost tradeoffs. Distributed tracing design is optional.
 
 **Practical activity:** Inspect Project 3's Prometheus and Grafana assets. Propose a small dashboard that combines delivery and service signals, then identify one pipeline optimization and how to measure its effect.
 
-**Expected output:** A metric catalog, dashboard sketch, and measurable optimization hypothesis.
+**Expected output:** The daily outputs above, centered on a metric catalog, dashboard sketch, and measurable optimization hypothesis.
 
-**Related repository project:** [Project 3 monitoring](../Projects/3_project/monitoring/) and [documentation](../Projects/3_project/docs/monitoring.md).
+**Related repository project:** [Project 3 monitoring](../Projects/3_project/monitoring/) and [documentation](../Projects/3_project/docs/monitoring.md), with pipeline evidence from [Project 1](../Projects/1_project/taskops-cicd/).
 
 ## Phase 13 — Day 45: Capstone and Repository Review
 
